@@ -60,3 +60,7 @@ Assertions can be completely ignored by defining `RAYLIB_ASSERT_NDEBUG` prior to
 #define RAYLIB_ASSERT_NDEBUG
 #include "raylib-assert.h"
 ```
+
+## License
+
+raylib-assert is licensed under an unmodified zlib/libpng license, which is an OSI-certified, BSD-like license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
