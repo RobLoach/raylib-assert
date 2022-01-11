@@ -1,6 +1,6 @@
 # raylib-assert
 
-Minimalistic assertion library for [raylib](https://www.raylib.com).
+Minimalistic [assertion](https://en.wikipedia.org/wiki/Assertion_(software_development)) library for [raylib](https://www.raylib.com).
 
 ## Example
 
@@ -10,8 +10,11 @@ Minimalistic assertion library for [raylib](https://www.raylib.com).
 
 int main(void)
 {
-    Assert(15 == 20);
-    // => ASSERT: 15 == 20 (main.c:22)
+    Assert(10 == 10);
+    // => Reports nothing, since the assert passes.
+
+    Assert(IsWindowReady());
+    // => ASSERT: IsWindowReady() (main.c:22)
 
     Assert(IsWindowReady(), "Window has not been created");
     // => ASSERT: Window has not been created (main.c:25)
