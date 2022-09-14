@@ -80,5 +80,9 @@ int main(void)
     TraceLog(LOG_INFO, "AssertBreakpoint - Expect Break");
     AssertBreakpoint();
 
+    // AssertImage()
+    Image image = LoadImage("notfound.png");
+    AssertImage(image);
+
     return 0;
 }

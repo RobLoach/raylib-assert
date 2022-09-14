@@ -28,7 +28,11 @@ int main(void)
     // => ASSERT: DESTROY ALL HUMANS! (main.c: 35)
 
     AssertBreakpoint();
-    // => ASSERT: AssertBreakpoint() (main.c: 35)
+    // => ASSERT: AssertBreakpoint() (main.c: 37)
+
+    Image image = LoadImage("NotFound.png");
+    AssertImage(image);
+    // => ASSERT: Image not loaded (image)  (main.c: 40)
 }
 ```
 
@@ -40,19 +44,24 @@ AssertNot(condition, [message], [params]);  // Asserts whether the given conditi
 AssertEqual(expected, actual, [message], [params]); // Asserts that the expected parameter is the same as the actual parameter.
 AssertFail(message, [params]);              // Sets a failed assertion, with the given message.
 AssertBreakpoint();                         // Similar to AssertFail(), without a message.
+AssertImage(image, [message])               // Asserts whether the given image has been loaded properly.
 ```
 
 ## Options
 
-You are able to change the behavior of assertions by making some defines prior to `#include "raylib-assert.h"`.
+You are able to change the behavior of assertions by making some defines prior to including `raylib-assert.h`:
+```
+#define RAYLIB_ASSERT_LOG LOG_FATAL
+// #define RAYLIB_ASSERT_NDEBUG
+#include "raylib-assert.h"
+```
 
 ### `RAYLIB_ASSERT_LOG`
 
-By default, failed assertions will report to `LOG_FATAL`, which means raylib will forcefully exit the program, and fail the application. To have failed assertions simply report a warning with `LOG_WARNING` instead, you can use...
+The trace log level to use when reporting to TraceLog() on failed assertions. By default, will report to `LOG_FATAL`. This will result in a forceful exit of the program, and fail the application. To have failed assertions simply report a warning with `LOG_WARNING` instead, you can use...
 
 ``` c
 #define RAYLIB_ASSERT_LOG LOG_WARNING
-#include "raylib-assert.h"
 ```
 
 ### `RAYLIB_ASSERT_NDEBUG`
@@ -61,7 +70,6 @@ Assertions can be completely ignored by defining `RAYLIB_ASSERT_NDEBUG` prior to
 
 ``` c
 #define RAYLIB_ASSERT_NDEBUG
-#include "raylib-assert.h"
 ```
 
 ## License

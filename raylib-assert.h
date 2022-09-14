@@ -37,8 +37,6 @@
 extern "C" {
 #endif
 
-#include "raylib.h" // NOLINT
-
 // How to report failed assertions
 #ifndef RAYLIB_ASSERT_LOG
 #define RAYLIB_ASSERT_LOG LOG_FATAL
@@ -62,6 +60,7 @@ extern "C" {
 #define AssertEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertEqual, __VA_ARGS__ )
 #define AssertNot(...) RAYLIB_ASSERT_VA_SELECT( AssertNot, __VA_ARGS__ )
 #define AssertFail(...) RAYLIB_ASSERT_VA_SELECT( AssertFail, __VA_ARGS__ )
+#define AssertImage(...) RAYLIB_ASSERT_VA_SELECT( AssertImage, __VA_ARGS__ )
 
 // Assert()
 #ifdef RAYLIB_ASSERT_NDEBUG
@@ -123,6 +122,25 @@ extern "C" {
 
 // AssertBreakpoint()
 #define AssertBreakpoint() AssertFail_1("AssertBreakpoint()")
+
+// AssertImage()
+#ifdef RAYLIB_ASSERT_NDEBUG
+#define AssertImage_1(image)
+#define AssertImage_2(image, message)
+#define AssertImage_3(image, message, p1)
+#define AssertImage_4(image, message, p1, p2)
+#define AssertImage_4(image, message, p1, p2, p3)
+#define AssertImage_4(image, message, p1, p2, p3, p4)
+#define AssertImage_4(image, message, p1, p2, p3, p4, p5)
+#else
+#define AssertImage_1(image) AssertNot_3((image).data == 0, "Image not loaded (%s)", #image)
+#define AssertImage_2(image, message) AssertNot_2((image).data == 0, message)
+#define AssertImage_3(image, message, p1) AssertNot_3((image).data == 0, message, p1)
+#define AssertImage_4(image, message, p1, p2) AssertNot_4((image).data == 0, message, p1, p2)
+#define AssertImage_5(image, message, p1, p2, p3) AssertNot_5((image).data == 0, message, p1, p2, p3)
+#define AssertImage_6(image, message, p1, p2, p3, p4) AssertNot_6((image).data == 0, message, p1, p2, p3, p4)
+#define AssertImage_7(image, message, p1, p2, p3, p4, p5) AssertNot_7((image).data == 0, message, p1, p2, p3, p4, p5)
+#endif
 
 #ifdef __cplusplus
 }
