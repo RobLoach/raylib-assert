@@ -39,6 +39,14 @@ extern "C" {
 
 // How to report failed assertions
 #ifndef RAYLIB_ASSERT_LOG
+/**
+ * The Trace Log Level used to report to TraceLog() on failed assertions. Defaults to LOG_FATAL.
+ *
+ * @example
+ *     #define RAYLIB_ASSERT_LOG LOG_WARNING
+ *
+ * @see TraceLogLevel
+ */
 #define RAYLIB_ASSERT_LOG LOG_FATAL
 #endif
 

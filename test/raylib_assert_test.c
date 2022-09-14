@@ -1,7 +1,7 @@
 #include "raylib.h"
 
 #define RAYLIB_ASSERT_LOG LOG_INFO
-//#define NDEBUG
+// #define NDEBUG
 #include "raylib-assert.h"
 
 int main(void)
