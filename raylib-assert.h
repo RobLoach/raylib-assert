@@ -56,11 +56,53 @@ extern "C" {
 #define RAYLIB_ASSERT_VA_SIZE( ... ) RAYLIB_ASSERT_GET_COUNT( __VA_ARGS__, 7, 6, 5, 4, 3, 2, 1 )
 #define RAYLIB_ASSERT_VA_SELECT( NAME, ... ) RAYLIB_ASSERT_SELECT( NAME, RAYLIB_ASSERT_VA_SIZE(__VA_ARGS__) )(__VA_ARGS__)
 
+/**
+ * Assert whether the given condition is true.
+ *
+ * @param condition The condition that is expected to be true.
+ * @param message (Optional) The message to provide on failed assertions.
+ */
 #define Assert(...) RAYLIB_ASSERT_VA_SELECT( Assert, __VA_ARGS__ )
+
+/**
+ * Assert whether the two given parameters are equal.
+ *
+ * @param actual The actual value.
+ * @param expected The expected value.
+ * @param message (Optional) The message to provide on failed assertions.
+ */
 #define AssertEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertEqual, __VA_ARGS__ )
+
+/**
+ * Assert whether the given condition is false.
+ *
+ * @param condition The condition that is expected to be false.
+ * @param message (Optional) The message to provide on failed assertions.
+ */
 #define AssertNot(...) RAYLIB_ASSERT_VA_SELECT( AssertNot, __VA_ARGS__ )
+
+/**
+ * Assert whether the two given parameters are not equal.
+ *
+ * @param actual The actual value.
+ * @param notexpected The expected value that shouldn't equal the actual value.
+ * @param message (Optional) The message to provide on failed assertions.
+ */
 #define AssertNotEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertNotEqual, __VA_ARGS__ )
+
+/**
+ * Sets a failed assertion, with the given message.
+ *
+ * @param message (Optional) The message to provide for the failed assertion.
+ */
 #define AssertFail(...) RAYLIB_ASSERT_VA_SELECT( AssertFail, __VA_ARGS__ )
+
+/**
+ * Assert whether an image is loaded.
+ *
+ * @param image The image to check for valid data.
+ * @param message (Optional) The message to provide on failed assertions.
+ */
 #define AssertImage(...) RAYLIB_ASSERT_VA_SELECT( AssertImage, __VA_ARGS__ )
 
 // Assert()
@@ -74,7 +116,7 @@ extern "C" {
 #define Assert_7(condition, message, p1, p2, p3, p4, p5)
 #else
 #define Assert_1(condition) Assert_2(condition, #condition)
-#define Assert_2(condition, message) if (!((bool)(condition))) { TraceLog(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", message, __FILE__, __LINE__); }
+#define Assert_2(condition, message) do { if (!((bool)(condition))) { TraceLog(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", message, __FILE__, __LINE__); } } while(0)
 #define Assert_3(condition, message, p1) Assert_2(condition, TextFormat(message, p1))
 #define Assert_4(condition, message, p1, p2) Assert_2(condition, TextFormat(message, p1, p2))
 #define Assert_5(condition, message, p1, p2, p3) Assert_2(condition, TextFormat(message, p1, p2, p3))
@@ -131,24 +173,19 @@ extern "C" {
 #endif
 
 // AssertBreakpoint()
+/**
+ * Adds an assertion breakpoint at the current point, and fails out on execution.
+ */
 #define AssertBreakpoint() AssertFail_1("AssertBreakpoint()")
 
 // AssertImage()
-#ifdef RAYLIB_ASSERT_NDEBUG
-#define AssertImage_1(image)
-#define AssertImage_2(image, message)
-#define AssertImage_3(image, message, p1)
-#define AssertImage_4(image, message, p1, p2)
-#define AssertImage_5(image, message, p1, p2, p3)
-#define AssertImage_6(image, message, p1, p2, p3, p4)
-#else
+#define AssertImage_0() AssertFail_1("No image provided for AssertImage()")
 #define AssertImage_1(image) AssertNotEqual_4((image).data, 0, "Image not loaded (%s)", #image)
 #define AssertImage_2(image, message) AssertNotEqual_3((image).data, 0, message)
 #define AssertImage_3(image, message, p1) AssertNotEqual_4((image).data, 0, message, p1)
 #define AssertImage_4(image, message, p1, p2) AssertNotEqual_5((image).data, 0, message, p1, p2)
 #define AssertImage_5(image, message, p1, p2, p3) AssertNotEqual_6((image).data, 0, message, p1, p2, p3)
 #define AssertImage_6(image, message, p1, p2, p3, p4) AssertNotEqual_7((image).data, 0, message, p1, p2, p3, p4)
-#endif
 
 #ifdef __cplusplus
 }

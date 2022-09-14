@@ -92,7 +92,7 @@ int main(void)
     AssertBreakpoint();
 
     // AssertImage()
-    Image image = LoadImage("notfound.png");
+    Image image = LoadImage("NotFound.png");
     AssertImage(image);
     AssertImage(image, "This image is not found!");
     AssertImage(image, "This image is not found! %i", 1);
