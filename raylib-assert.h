@@ -59,6 +59,7 @@ extern "C" {
 #define Assert(...) RAYLIB_ASSERT_VA_SELECT( Assert, __VA_ARGS__ )
 #define AssertEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertEqual, __VA_ARGS__ )
 #define AssertNot(...) RAYLIB_ASSERT_VA_SELECT( AssertNot, __VA_ARGS__ )
+#define AssertNotEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertNotEqual, __VA_ARGS__ )
 #define AssertFail(...) RAYLIB_ASSERT_VA_SELECT( AssertFail, __VA_ARGS__ )
 #define AssertImage(...) RAYLIB_ASSERT_VA_SELECT( AssertImage, __VA_ARGS__ )
 
@@ -89,6 +90,15 @@ extern "C" {
 #define AssertEqual_5(actual, expected, message, p1, p2) Assert_4((actual) == (expected), message, p1, p2)
 #define AssertEqual_6(actual, expected, message, p1, p2, p3) Assert_5((actual) == (expected), message, p1, p2, p3)
 #define AssertEqual_7(actual, expected, message, p1, p2, p3, p4) Assert_6((actual) == (expected), message, p1, p2, p3, p4)
+
+// AssertNotEqual()
+#define AssertNotEqual_1(condition) AssertNot_2(condition, #condition)
+#define AssertNotEqual_2(actual, expected) Assert_4((actual) != (expected), "%s != %s", #actual, #expected)
+#define AssertNotEqual_3(actual, expected, message) Assert_2((actual) != (expected), message)
+#define AssertNotEqual_4(actual, expected, message, p1) Assert_3((actual) != (expected), message, p1)
+#define AssertNotEqual_5(actual, expected, message, p1, p2) Assert_4((actual) != (expected), message, p1, p2)
+#define AssertNotEqual_6(actual, expected, message, p1, p2, p3) Assert_5((actual) != (expected), message, p1, p2, p3)
+#define AssertNotEqual_7(actual, expected, message, p1, p2, p3, p4) Assert_6((actual) != (expected), message, p1, p2, p3, p4)
 
 // AssertNot()
 #define AssertNot_1(condition) Assert_2(!(bool)(condition), #condition)
@@ -129,17 +139,15 @@ extern "C" {
 #define AssertImage_2(image, message)
 #define AssertImage_3(image, message, p1)
 #define AssertImage_4(image, message, p1, p2)
-#define AssertImage_4(image, message, p1, p2, p3)
-#define AssertImage_4(image, message, p1, p2, p3, p4)
-#define AssertImage_4(image, message, p1, p2, p3, p4, p5)
+#define AssertImage_5(image, message, p1, p2, p3)
+#define AssertImage_6(image, message, p1, p2, p3, p4)
 #else
-#define AssertImage_1(image) AssertNot_3((image).data == 0, "Image not loaded (%s)", #image)
-#define AssertImage_2(image, message) AssertNot_2((image).data == 0, message)
-#define AssertImage_3(image, message, p1) AssertNot_3((image).data == 0, message, p1)
-#define AssertImage_4(image, message, p1, p2) AssertNot_4((image).data == 0, message, p1, p2)
-#define AssertImage_5(image, message, p1, p2, p3) AssertNot_5((image).data == 0, message, p1, p2, p3)
-#define AssertImage_6(image, message, p1, p2, p3, p4) AssertNot_6((image).data == 0, message, p1, p2, p3, p4)
-#define AssertImage_7(image, message, p1, p2, p3, p4, p5) AssertNot_7((image).data == 0, message, p1, p2, p3, p4, p5)
+#define AssertImage_1(image) AssertNotEqual_4((image).data, 0, "Image not loaded (%s)", #image)
+#define AssertImage_2(image, message) AssertNotEqual_3((image).data, 0, message)
+#define AssertImage_3(image, message, p1) AssertNotEqual_4((image).data, 0, message, p1)
+#define AssertImage_4(image, message, p1, p2) AssertNotEqual_5((image).data, 0, message, p1, p2)
+#define AssertImage_5(image, message, p1, p2, p3) AssertNotEqual_6((image).data, 0, message, p1, p2, p3)
+#define AssertImage_6(image, message, p1, p2, p3, p4) AssertNotEqual_7((image).data, 0, message, p1, p2, p3, p4)
 #endif
 
 #ifdef __cplusplus

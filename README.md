@@ -42,9 +42,10 @@ int main(void)
 Assert(condition, [message], [params]);     // Asserts whether the given condition is true, with the given message parameters.
 AssertNot(condition, [message], [params]);  // Asserts whether the given condition is false.
 AssertEqual(expected, actual, [message], [params]); // Asserts that the expected parameter is the same as the actual parameter.
+AssertNotEqual(expected, actual, [message], [params]); // Asserts that the expected parameter is not the same as the actual parameter.
 AssertFail(message, [params]);              // Sets a failed assertion, with the given message.
 AssertBreakpoint();                         // Similar to AssertFail(), without a message.
-AssertImage(image, [message])               // Asserts whether the given image has been loaded properly.
+AssertImage(image, [message], [params])     // Asserts whether the given image has been loaded properly.
 ```
 
 ## Options

@@ -26,7 +26,7 @@ int main(void)
     Assert(0, "Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
     Assert(0, "Expected Fail - %i, %i, %i, %i, %i", 1, 2, 3, 4, 5);
 
-    // AssertEqual(1)
+    // AssertEqual(TRUE)
     TraceLog(LOG_INFO, "AssertEqual(1, 1) - Expected Passes");
     AssertEqual(1);
     AssertEqual(1, 1);
@@ -36,7 +36,7 @@ int main(void)
     AssertEqual(1, 1, "Expected Pass - %i, %i, %i", 1, 2, 3);
     AssertEqual(1, 1, "Expected Pass - %i, %i, %i, %i", 1, 2, 3, 4);
 
-    // AssertEqual(0)
+    // AssertEqual(NOT)
     TraceLog(LOG_INFO, "AssertEqual(1, 0) - Expected Fails");
     AssertEqual(0);
     AssertEqual(1, 0);
@@ -45,6 +45,17 @@ int main(void)
     AssertEqual(1, 0, "Expected Fail - %i, %i", 1, 2);
     AssertEqual(1, 0, "Expected Fail - %i, %i, %i", 1, 2, 3);
     AssertEqual(1, 0, "Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+
+    // AssertNotEqual(0)
+    TraceLog(LOG_INFO, "AssertNotEqual() - Expected Fails");
+    AssertNotEqual(0);
+    AssertNotEqual(1);
+    AssertNotEqual(1, 1);
+    AssertNotEqual(1, 1, "Expected Fail");
+    AssertNotEqual(1, 1, "Expected Fail - %i", 1);
+    AssertNotEqual(1, 1, "Expected Fail - %i, %i", 1, 2);
+    AssertNotEqual(1, 1, "Expected Fail - %i, %i, %i", 1, 2, 3);
+    AssertNotEqual(1, 1, "Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
 
     // AssertNot(0)
     TraceLog(LOG_INFO, "AssertNot(0) - Expected Passes");
@@ -83,6 +94,11 @@ int main(void)
     // AssertImage()
     Image image = LoadImage("notfound.png");
     AssertImage(image);
+    AssertImage(image, "This image is not found!");
+    AssertImage(image, "This image is not found! %i", 1);
+    AssertImage(image, "This image is not found! %i, %i", 1, 2);
+    AssertImage(image, "This image is not found! %i, %i, %i", 1, 2, 3);
+    AssertImage(image, "This image is not found! %i, %i, %i, %i", 1, 2, 3, 4);
 
     return 0;
 }
