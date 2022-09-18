@@ -180,12 +180,6 @@ extern "C" {
 #define AssertFail_7(message, p1, p2, p3, p4, p5, p6) AssertFail_1(TextFormat(message, p1, p2, p3, p4, p5, p6))
 #endif
 
-// AssertBreakpoint()
-/**
- * Adds an assertion breakpoint at the current point, and fails out on execution.
- */
-#define AssertBreakpoint() AssertFail_1("AssertBreakpoint()")
-
 // AssertImage()
 #define AssertImage_0() AssertFail_1("No image provided for AssertImage()")
 #define AssertImage_1(image) AssertNotEqual_4((image).data, 0, "Image not loaded (%s)", #image)
@@ -194,6 +188,15 @@ extern "C" {
 #define AssertImage_4(image, message, p1, p2) AssertNotEqual_5((image).data, 0, message, p1, p2)
 #define AssertImage_5(image, message, p1, p2, p3) AssertNotEqual_6((image).data, 0, message, p1, p2, p3)
 #define AssertImage_6(image, message, p1, p2, p3, p4) AssertNotEqual_7((image).data, 0, message, p1, p2, p3, p4)
+
+// AssertTexture()
+#define AssertTexture_0() AssertFail_1("No texture provided for AssertTexture()")
+#define AssertTexture_1(texture) AssertNotEqual_4((texture).id, 0, "Texture not loaded (%s)", #image)
+#define AssertTexture_2(texture, message) AssertNotEqual_3((texture).data, 0, message)
+#define AssertTexture_3(texture, message, p1) AssertNotEqual_4((texture).data, 0, message, p1)
+#define AssertTexture_4(texture, message, p1, p2) AssertNotEqual_5((texture).data, 0, message, p1, p2)
+#define AssertTexture_5(texture, message, p1, p2, p3) AssertNotEqual_6((texture).data, 0, message, p1, p2, p3)
+#define AssertTexture_6(texture, message, p1, p2, p3, p4) AssertNotEqual_7((texture).data, 0, message, p1, p2, p3, p4)
 
 #ifdef __cplusplus
 }

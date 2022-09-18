@@ -87,10 +87,6 @@ int main(void)
     AssertFail("Expected Fail - %i, %i, %i, %i, %i", 1, 2, 3, 4, 5);
     AssertFail("Expected Fail - %i, %i, %i, %i, %i, %i", 1, 2, 3, 4, 5, 6);
 
-    // AssertBreakpoint()
-    TraceLog(LOG_INFO, "AssertBreakpoint - Expect Break");
-    AssertBreakpoint();
-
     // AssertImage()
     Image image = LoadImage("NotFound.png");
     AssertImage(image);

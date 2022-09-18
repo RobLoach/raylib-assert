@@ -27,9 +27,6 @@ int main(void)
     AssertFail("DESTROY ALL HUMANS!");
     // => ASSERT: DESTROY ALL HUMANS! (main.c: 35)
 
-    AssertBreakpoint();
-    // => ASSERT: AssertBreakpoint() (main.c: 37)
-
     Image image = LoadImage("NotFound.png");
     AssertImage(image);
     // => ASSERT: Image not loaded (image)  (main.c: 40)
@@ -39,13 +36,13 @@ int main(void)
 ## API
 
 ``` c
-Assert(condition, [message], [params]);     // Asserts whether the given condition is true, with the given message parameters.
-AssertNot(condition, [message], [params]);  // Asserts whether the given condition is false.
+Assert(condition, [message], [params]);      // Asserts whether the given condition is true, with the given message parameters.
+AssertNot(condition, [message], [params]);   // Asserts whether the given condition is false.
 AssertEqual(expected, actual, [message], [params]); // Asserts that the expected parameter is the same as the actual parameter.
-AssertNotEqual(expected, actual, [message], [params]); // Asserts that the expected parameter is not the same as the actual parameter.
-AssertFail(message, [params]);              // Sets a failed assertion, with the given message.
-AssertBreakpoint();                         // Similar to AssertFail(), without a message.
-AssertImage(image, [message], [params])     // Asserts whether the given image has been loaded properly.
+AssertNotEqual(unexpected, actual, [message], [params]); // Asserts that the expected parameter is not the same as the actual parameter.
+AssertFail([message], [params]);             // Sets a failed assertion, with the given message.
+AssertImage(image, [message], [params]);     // Asserts whether the given image has been loaded properly.
+AssertTexture(texture, [message], [params]); // Asserts whether the given texture has been loaded properly.
 ```
 
 ## Options
