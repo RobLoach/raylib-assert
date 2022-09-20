@@ -43,6 +43,8 @@ AssertNotEqual(unexpected, actual, [message], [params]); // Asserts that the exp
 AssertFail([message], [params]);             // Sets a failed assertion, with the given message.
 AssertImage(image, [message], [params]);     // Asserts whether the given image has been loaded properly.
 AssertTexture(texture, [message], [params]); // Asserts whether the given texture has been loaded properly.
+AssertColorSame(color1, color2, [message], [params]); // Asserts whether the given colors are the same.
+AssertImageSame(image1, image2, [message], [params]); // Asserts whether the given images are the same.
 ```
 
 ## Options

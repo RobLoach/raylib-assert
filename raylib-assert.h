@@ -69,6 +69,11 @@ extern "C" {
  *
  * @param condition The condition that is expected to be true.
  * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ * @param p5 (Optional) The fifth parameter in the message.
  */
 #define Assert(...) RAYLIB_ASSERT_VA_SELECT( Assert, __VA_ARGS__ )
 
@@ -78,6 +83,10 @@ extern "C" {
  * @param actual The actual value.
  * @param expected The expected value.
  * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
  */
 #define AssertEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertEqual, __VA_ARGS__ )
 
@@ -86,6 +95,11 @@ extern "C" {
  *
  * @param condition The condition that is expected to be false.
  * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ * @param p5 (Optional) The fifth parameter in the message.
  */
 #define AssertNot(...) RAYLIB_ASSERT_VA_SELECT( AssertNot, __VA_ARGS__ )
 
@@ -95,6 +109,10 @@ extern "C" {
  * @param actual The actual value.
  * @param notexpected The expected value that shouldn't equal the actual value.
  * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
  */
 #define AssertNotEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertNotEqual, __VA_ARGS__ )
 
@@ -102,6 +120,12 @@ extern "C" {
  * Sets a failed assertion, with the given message.
  *
  * @param message (Optional) The message to provide for the failed assertion.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ * @param p5 (Optional) The fifth parameter in the message.
+ * @param p6 (Optional) The sixth parameter in the message.
  */
 #define AssertFail(...) RAYLIB_ASSERT_VA_SELECT( AssertFail, __VA_ARGS__ )
 
@@ -110,8 +134,39 @@ extern "C" {
  *
  * @param image The image to check for valid data.
  * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ * @param p5 (Optional) The fifth parameter in the message.
  */
 #define AssertImage(...) RAYLIB_ASSERT_VA_SELECT( AssertImage, __VA_ARGS__ )
+
+/**
+ * Assert whether two images are the same.
+ *
+ * @param image1 The first image to check is equal to the second.
+ * @param image2 The second image to check is equal to the first.
+ * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ */
+#define AssertImageSame(...) RAYLIB_ASSERT_VA_SELECT( AssertImageSame, __VA_ARGS__ )
+
+/**
+ * Assert whether two colors are the same.
+ *
+ * @param color1 The first color to check.
+ * @param color2 The second color to check.
+ * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ */
+#define AssertColorSame(...) RAYLIB_ASSERT_VA_SELECT( AssertColorSame, __VA_ARGS__ )
 
 // Assert()
 #ifdef RAYLIB_ASSERT_NDEBUG
@@ -134,7 +189,7 @@ extern "C" {
 
 // AssertEqual()
 #define AssertEqual_1(condition) Assert_2(condition, #condition)
-#define AssertEqual_2(actual, expected) Assert_4((actual) == (expected), "%s == %s", #actual, #expected)
+#define AssertEqual_2(actual, expected) Assert_4((actual) == (expected), "AssertEqual(%s, %s) - Provided arguments are not equal", #actual, #expected)
 #define AssertEqual_3(actual, expected, message) Assert_2((actual) == (expected), message)
 #define AssertEqual_4(actual, expected, message, p1) Assert_3((actual) == (expected), message, p1)
 #define AssertEqual_5(actual, expected, message, p1, p2) Assert_4((actual) == (expected), message, p1, p2)
@@ -143,7 +198,7 @@ extern "C" {
 
 // AssertNotEqual()
 #define AssertNotEqual_1(condition) AssertNot_2(condition, #condition)
-#define AssertNotEqual_2(actual, expected) Assert_4((actual) != (expected), "%s != %s", #actual, #expected)
+#define AssertNotEqual_2(actual, expected) Assert_4((actual) != (expected), "AssertNotEqual(%s, %s) - Provided arguments are equal", #actual, #expected)
 #define AssertNotEqual_3(actual, expected, message) Assert_2((actual) != (expected), message)
 #define AssertNotEqual_4(actual, expected, message, p1) Assert_3((actual) != (expected), message, p1)
 #define AssertNotEqual_5(actual, expected, message, p1, p2) Assert_4((actual) != (expected), message, p1, p2)
@@ -182,7 +237,7 @@ extern "C" {
 
 // AssertImage()
 #define AssertImage_0() AssertFail_1("No image provided for AssertImage()")
-#define AssertImage_1(image) AssertNotEqual_4((image).data, 0, "Image not loaded (%s)", #image)
+#define AssertImage_1(image) AssertNotEqual_4((image).data, 0, "AssertImage(%s) - Image not loaded", #image)
 #define AssertImage_2(image, message) AssertNotEqual_3((image).data, 0, message)
 #define AssertImage_3(image, message, p1) AssertNotEqual_4((image).data, 0, message, p1)
 #define AssertImage_4(image, message, p1, p2) AssertNotEqual_5((image).data, 0, message, p1, p2)
@@ -191,12 +246,57 @@ extern "C" {
 
 // AssertTexture()
 #define AssertTexture_0() AssertFail_1("No texture provided for AssertTexture()")
-#define AssertTexture_1(texture) AssertNotEqual_4((texture).id, 0, "Texture not loaded (%s)", #image)
+#define AssertTexture_1(texture) AssertNotEqual_4((texture).id, 0, "AssertTexture(%s) - Texture not loaded", #texture)
 #define AssertTexture_2(texture, message) AssertNotEqual_3((texture).data, 0, message)
 #define AssertTexture_3(texture, message, p1) AssertNotEqual_4((texture).data, 0, message, p1)
 #define AssertTexture_4(texture, message, p1, p2) AssertNotEqual_5((texture).data, 0, message, p1, p2)
 #define AssertTexture_5(texture, message, p1, p2, p3) AssertNotEqual_6((texture).data, 0, message, p1, p2, p3)
 #define AssertTexture_6(texture, message, p1, p2, p3, p4) AssertNotEqual_7((texture).data, 0, message, p1, p2, p3, p4)
+
+// AssertImageSame()
+#define AssertImageSame_0() AssertFail_1("AssertImageSame(): No images provided to AssertImageSame(), expected 2")
+#define AssertImageSame_1(image) AssertFail_1("Only one image provided for AssertImageSame()")
+#define AssertImageSame_2(image1, image2) AssertImageSame_5(image1, image2, "AssertImageSame(%s, %s) - Images do not match", #image1, #image2)
+#define AssertImageSame_3(image1, image2, message) do { \
+    if (image1.width != image2.width || image1.height != image2.height || image1.format != image2.format) { \
+        AssertFail_1(message); \
+        break; \
+    } \
+    Color* colors1 = LoadImageColors(image1); \
+    Color* colors2 = LoadImageColors(image2); \
+    bool failure = false; \
+    for (int i = 0; i < image1.width * image1.height; i++) { \
+        Color color1 = colors1[i]; \
+        Color color2 = colors2[i]; \
+        if (color1.r != color2.r || color1.g != color2.g || color1.b != color2.b || color1.a != color2.a) { \
+            failure = true; \
+            break; \
+        } \
+    } \
+    UnloadImageColors(colors1); \
+    UnloadImageColors(colors2); \
+    if (failure) { \
+        AssertFail_1(message); \
+    } \
+} while(0)
+#define AssertImageSame_4(image1, image2, message, p1) AssertImageSame_3(image1, image2, TextFormat(message, p1))
+#define AssertImageSame_5(image1, image2, message, p1, p2) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2))
+#define AssertImageSame_6(image1, image2, message, p1, p2, p3) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2, p3))
+#define AssertImageSame_7(image1, image2, message, p1, p2, p3, p4) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2, p3, p4))
+
+// AssertColorSame()
+#define AssertColorSame_0() AssertFail_1("Colors not provided to AssertColorSame()")
+#define AssertColorSame_1(color) AssertFail_1("Expected two colors for AssertColorSame()")
+#define AssertColorSame_2(color1, color2) AssertColorSame_5(color1, color2, "AssertColorSame(%s, %s) - Colors do not match", #color1, #color2)
+#define AssertColorSame_3(color1, color2, message) do { \
+    if (color1.r != color2.r || color1.g != color2.g || color1.b != color2.b || color1.a != color2.a) { \
+        AssertFail_1(message); \
+    }\
+} while (0)
+#define AssertColorSame_4(color1, color2, message, p1) AssertColorSame_3(color1, color2, TextFormat(message, p1))
+#define AssertColorSame_5(color1, color2, message, p1, p2) AssertColorSame_3(color1, color2, TextFormat(message, p1, p2))
+#define AssertColorSame_6(color1, color2, message, p1, p2, p3) AssertColorSame_3(color1, color2, TextFormat(message, p1, p2, p3))
+#define AssertColorSame_7(color1, color2, message, p1, p2, p3, p4) AssertColorSame_3(color1, color2, TextFormat(message, p1, p2, p3, p4))
 
 #ifdef __cplusplus
 }

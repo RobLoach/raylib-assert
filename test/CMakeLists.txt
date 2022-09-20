@@ -30,5 +30,11 @@ endif()
 # Link to raylib_assert
 target_link_libraries(raylib_assert_test raylib raylib_assert)
 
+# Copy the resources
+file(GLOB resources resources/*)
+set(test_resources)
+list(APPEND test_resources ${resources})
+file(COPY ${test_resources} DESTINATION "resources/")
+
 # Build the test
 add_test(NAME raylib_assert_test COMMAND raylib_assert_test)
