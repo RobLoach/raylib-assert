@@ -75,7 +75,7 @@ extern "C" {
  * @param p4 (Optional) The fourth parameter in the message.
  * @param p5 (Optional) The fifth parameter in the message.
  */
-#define Assert(...) RAYLIB_ASSERT_VA_SELECT( Assert, __VA_ARGS__ )
+#define Assert(...) RAYLIB_ASSERT_VA_SELECT(Assert, __VA_ARGS__)
 
 /**
  * Assert whether the two given parameters are equal.
@@ -88,7 +88,7 @@ extern "C" {
  * @param p3 (Optional) The third parameter in the message.
  * @param p4 (Optional) The fourth parameter in the message.
  */
-#define AssertEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertEqual, __VA_ARGS__ )
+#define AssertEqual(...) RAYLIB_ASSERT_VA_SELECT(AssertEqual, __VA_ARGS__)
 
 /**
  * Assert whether the given condition is false.
@@ -101,7 +101,7 @@ extern "C" {
  * @param p4 (Optional) The fourth parameter in the message.
  * @param p5 (Optional) The fifth parameter in the message.
  */
-#define AssertNot(...) RAYLIB_ASSERT_VA_SELECT( AssertNot, __VA_ARGS__ )
+#define AssertNot(...) RAYLIB_ASSERT_VA_SELECT(AssertNot, __VA_ARGS__)
 
 /**
  * Assert whether the two given parameters are not equal.
@@ -114,7 +114,7 @@ extern "C" {
  * @param p3 (Optional) The third parameter in the message.
  * @param p4 (Optional) The fourth parameter in the message.
  */
-#define AssertNotEqual(...) RAYLIB_ASSERT_VA_SELECT( AssertNotEqual, __VA_ARGS__ )
+#define AssertNotEqual(...) RAYLIB_ASSERT_VA_SELECT(AssertNotEqual, __VA_ARGS__)
 
 /**
  * Sets a failed assertion, with the given message.
@@ -127,7 +127,7 @@ extern "C" {
  * @param p5 (Optional) The fifth parameter in the message.
  * @param p6 (Optional) The sixth parameter in the message.
  */
-#define AssertFail(...) RAYLIB_ASSERT_VA_SELECT( AssertFail, __VA_ARGS__ )
+#define AssertFail(...) RAYLIB_ASSERT_VA_SELECT(AssertFail, __VA_ARGS__)
 
 /**
  * Assert whether an image is loaded.
@@ -140,7 +140,7 @@ extern "C" {
  * @param p4 (Optional) The fourth parameter in the message.
  * @param p5 (Optional) The fifth parameter in the message.
  */
-#define AssertImage(...) RAYLIB_ASSERT_VA_SELECT( AssertImage, __VA_ARGS__ )
+#define AssertImage(...) RAYLIB_ASSERT_VA_SELECT(AssertImage, __VA_ARGS__)
 
 /**
  * Assert whether two images are the same.
@@ -153,7 +153,7 @@ extern "C" {
  * @param p3 (Optional) The third parameter in the message.
  * @param p4 (Optional) The fourth parameter in the message.
  */
-#define AssertImageSame(...) RAYLIB_ASSERT_VA_SELECT( AssertImageSame, __VA_ARGS__ )
+#define AssertImageSame(...) RAYLIB_ASSERT_VA_SELECT(AssertImageSame, __VA_ARGS__)
 
 /**
  * Assert whether two colors are the same.
@@ -166,7 +166,7 @@ extern "C" {
  * @param p3 (Optional) The third parameter in the message.
  * @param p4 (Optional) The fourth parameter in the message.
  */
-#define AssertColorSame(...) RAYLIB_ASSERT_VA_SELECT( AssertColorSame, __VA_ARGS__ )
+#define AssertColorSame(...) RAYLIB_ASSERT_VA_SELECT(AssertColorSame, __VA_ARGS__)
 
 // Assert()
 #ifdef RAYLIB_ASSERT_NDEBUG
@@ -254,6 +254,16 @@ extern "C" {
 #define AssertTexture_6(texture, message, p1, p2, p3, p4) AssertNotEqual_7((texture).data, 0, message, p1, p2, p3, p4)
 
 // AssertImageSame()
+#ifdef RAYLIB_ASSERT_NDEBUG
+#define AssertImageSame_0()
+#define AssertImageSame_1(image)
+#define AssertImageSame_2(image1, image2)
+#define AssertImageSame_3(image1, image2, message)
+#define AssertImageSame_4(image1, image2, message, p1)
+#define AssertImageSame_5(image1, image2, message, p1, p2,)
+#define AssertImageSame_6(image1, image2, message, p1, p2, p3)
+#define AssertImageSame_7(image1, image2, message, p1, p2, p3, p4)
+#else
 #define AssertImageSame_0() AssertFail_1("AssertImageSame(): No images provided to AssertImageSame(), expected 2")
 #define AssertImageSame_1(image) AssertFail_1("Only one image provided for AssertImageSame()")
 #define AssertImageSame_2(image1, image2) AssertImageSame_5(image1, image2, "AssertImageSame(%s, %s) - Images do not match", #image1, #image2)
@@ -283,6 +293,7 @@ extern "C" {
 #define AssertImageSame_5(image1, image2, message, p1, p2) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2))
 #define AssertImageSame_6(image1, image2, message, p1, p2, p3) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2, p3))
 #define AssertImageSame_7(image1, image2, message, p1, p2, p3, p4) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2, p3, p4))
+#endif
 
 // AssertColorSame()
 #define AssertColorSame_0() AssertFail_1("Colors not provided to AssertColorSame()")
