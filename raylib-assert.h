@@ -3,7 +3,9 @@
 *   raylib-assert - Assertion library for raylib.
 *   https://github.com/robloach/raylib-assert
 *
-*   Copyright 2021 Rob Loach (@RobLoach)
+*   Version: v1.1.1
+*
+*   Copyright 2022 Rob Loach (@RobLoach)
 *
 *   DEPENDENCIES:
 *       raylib https://www.raylib.com/
