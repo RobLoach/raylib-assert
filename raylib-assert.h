@@ -3,12 +3,12 @@
 *   raylib-assert - Assertion library for raylib.
 *   https://github.com/robloach/raylib-assert
 *
-*   Version: v1.1.1
+*   Version: v1.1.2
 *
-*   Copyright 2022 Rob Loach (@RobLoach)
+*   Copyright 2023 Rob Loach (@RobLoach)
 *
 *   DEPENDENCIES:
-*       raylib https://www.raylib.com/
+*       raylib https://www.raylib.com
 *
 *   LICENSE: zlib/libpng
 *

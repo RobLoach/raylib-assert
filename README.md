@@ -72,6 +72,22 @@ Assertions can be completely ignored by defining `RAYLIB_ASSERT_NDEBUG` prior to
 #define RAYLIB_ASSERT_NDEBUG
 ```
 
+### `RAYLIB_ASSERT_TRACELOG`
+
+Allows changing which `TraceLog()` function the assertion library uses to output messages.
+
+``` c
+#define RAYLIB_ASSERT_TRACELOG TraceLog
+```
+
+### `RAYLIB_ASSERT_TEXTFORMAT`
+
+Allows changing which `TextFormat()` function the assertion library uses to output messages.
+
+``` c
+#define RAYLIB_ASSERT_TEXTFORMAT TextFormat
+```
+
 ## License
 
 raylib-assert is licensed under an unmodified zlib/libpng license, which is an OSI-certified, BSD-like license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
