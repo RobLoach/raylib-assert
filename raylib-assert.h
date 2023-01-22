@@ -59,6 +59,24 @@ extern "C" {
 #endif
 #endif
 
+#ifndef RAYLIB_ASSERT_TRACELOG
+/**
+ * The TraceLog() function to use.
+ *
+ * @see TraceLog()
+ */
+#define RAYLIB_ASSERT_TRACELOG TraceLog
+#endif
+
+#ifndef RAYLIB_ASSERT_TEXTFORMAT
+/**
+ * The TextFormat() function to use when formating text.
+ *
+ * @see TextFormat()
+ */
+#define RAYLIB_ASSERT_TEXTFORMAT TextFormat
+#endif
+
 // Variadic Arguments
 #define RAYLIB_ASSERT_CAT( A, B ) A ## B
 #define RAYLIB_ASSERT_SELECT( NAME, NUM ) RAYLIB_ASSERT_CAT( NAME ## _, NUM )
@@ -183,12 +201,12 @@ extern "C" {
 #else
 #define Assert_0() AssertFail_1("No condition provided for Assert()")
 #define Assert_1(condition) Assert_2(condition, #condition)
-#define Assert_2(condition, message) do { if (!((bool)(condition))) { TraceLog(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", message, __FILE__, __LINE__); } } while(0)
-#define Assert_3(condition, message, p1) Assert_2(condition, TextFormat(message, p1))
-#define Assert_4(condition, message, p1, p2) Assert_2(condition, TextFormat(message, p1, p2))
-#define Assert_5(condition, message, p1, p2, p3) Assert_2(condition, TextFormat(message, p1, p2, p3))
-#define Assert_6(condition, message, p1, p2, p3, p4) Assert_2(condition, TextFormat(message, p1, p2, p3, p4))
-#define Assert_7(condition, message, p1, p2, p3, p4, p5) Assert_2(condition, TextFormat(message, p1, p2, p3, p4, p5))
+#define Assert_2(condition, message) do { if (!((bool)(condition))) { RAYLIB_ASSERT_TRACELOG(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", message, __FILE__, __LINE__); } } while(0)
+#define Assert_3(condition, message, p1) Assert_2(condition, RAYLIB_ASSERT_TEXTFORMAT(message, p1))
+#define Assert_4(condition, message, p1, p2) Assert_2(condition, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2))
+#define Assert_5(condition, message, p1, p2, p3) Assert_2(condition, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3))
+#define Assert_6(condition, message, p1, p2, p3, p4) Assert_2(condition, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3, p4))
+#define Assert_7(condition, message, p1, p2, p3, p4, p5) Assert_2(condition, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3, p4, p5))
 #endif
 
 // AssertEqual()
@@ -232,14 +250,14 @@ extern "C" {
 #define AssertFail_6(message, p1, p2, p3, p4, p5)
 #define AssertFail_7(message, p1, p2, p3, p4, p5, p6)
 #else
-#define AssertFail_0() TraceLog(RAYLIB_ASSERT_LOG, "ASSERT: AssertFail() (%s:%i)", __FILE__, __LINE__)
-#define AssertFail_1(message) TraceLog(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", message, __FILE__, __LINE__)
-#define AssertFail_2(message, p1) AssertFail_1(TextFormat(message, p1))
-#define AssertFail_3(message, p1, p2) AssertFail_1(TextFormat(message, p1, p2))
-#define AssertFail_4(message, p1, p2, p3) AssertFail_1(TextFormat(message, p1, p2, p3))
-#define AssertFail_5(message, p1, p2, p3, p4) AssertFail_1(TextFormat(message, p1, p2, p3, p4))
-#define AssertFail_6(message, p1, p2, p3, p4, p5) AssertFail_1(TextFormat(message, p1, p2, p3, p4, p5))
-#define AssertFail_7(message, p1, p2, p3, p4, p5, p6) AssertFail_1(TextFormat(message, p1, p2, p3, p4, p5, p6))
+#define AssertFail_0() RAYLIB_ASSERT_TRACELOG(RAYLIB_ASSERT_LOG, "ASSERT: AssertFail() (%s:%i)", __FILE__, __LINE__)
+#define AssertFail_1(message) RAYLIB_ASSERT_TRACELOG(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", message, __FILE__, __LINE__)
+#define AssertFail_2(message, p1) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1))
+#define AssertFail_3(message, p1, p2) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2))
+#define AssertFail_4(message, p1, p2, p3) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3))
+#define AssertFail_5(message, p1, p2, p3, p4) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3, p4))
+#define AssertFail_6(message, p1, p2, p3, p4, p5) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3, p4, p5))
+#define AssertFail_7(message, p1, p2, p3, p4, p5, p6) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3, p4, p5, p6))
 #endif
 
 // AssertImage()
@@ -296,10 +314,10 @@ extern "C" {
         AssertFail_1(message); \
     } \
 } while(0)
-#define AssertImageSame_4(image1, image2, message, p1) AssertImageSame_3(image1, image2, TextFormat(message, p1))
-#define AssertImageSame_5(image1, image2, message, p1, p2) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2))
-#define AssertImageSame_6(image1, image2, message, p1, p2, p3) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2, p3))
-#define AssertImageSame_7(image1, image2, message, p1, p2, p3, p4) AssertImageSame_3(image1, image2, TextFormat(message, p1, p2, p3, p4))
+#define AssertImageSame_4(image1, image2, message, p1) AssertImageSame_3(image1, image2, RAYLIB_ASSERT_TEXTFORMAT(message, p1))
+#define AssertImageSame_5(image1, image2, message, p1, p2) AssertImageSame_3(image1, image2, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2))
+#define AssertImageSame_6(image1, image2, message, p1, p2, p3) AssertImageSame_3(image1, image2, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3))
+#define AssertImageSame_7(image1, image2, message, p1, p2, p3, p4) AssertImageSame_3(image1, image2, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3, p4))
 #endif
 
 // AssertColorSame()
@@ -321,10 +339,10 @@ extern "C" {
         AssertFail_1(message); \
     }\
 } while (0)
-#define AssertColorSame_4(color1, color2, message, p1) AssertColorSame_3(color1, color2, TextFormat(message, p1))
-#define AssertColorSame_5(color1, color2, message, p1, p2) AssertColorSame_3(color1, color2, TextFormat(message, p1, p2))
-#define AssertColorSame_6(color1, color2, message, p1, p2, p3) AssertColorSame_3(color1, color2, TextFormat(message, p1, p2, p3))
-#define AssertColorSame_7(color1, color2, message, p1, p2, p3, p4) AssertColorSame_3(color1, color2, TextFormat(message, p1, p2, p3, p4))
+#define AssertColorSame_4(color1, color2, message, p1) AssertColorSame_3(color1, color2, RAYLIB_ASSERT_TEXTFORMAT(message, p1))
+#define AssertColorSame_5(color1, color2, message, p1, p2) AssertColorSame_3(color1, color2, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2))
+#define AssertColorSame_6(color1, color2, message, p1, p2, p3) AssertColorSame_3(color1, color2, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3))
+#define AssertColorSame_7(color1, color2, message, p1, p2, p3, p4) AssertColorSame_3(color1, color2, RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3, p4))
 #endif
 
 #ifdef __cplusplus
