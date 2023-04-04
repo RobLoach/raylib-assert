@@ -3,12 +3,12 @@
 *   raylib-assert - Assertion library for raylib.
 *   https://github.com/robloach/raylib-assert
 *
-*   Version: v1.1.2
+*   Version: v2.0.0
 *
 *   Copyright 2023 Rob Loach (@RobLoach)
 *
 *   DEPENDENCIES:
-*       raylib https://www.raylib.com
+*       raylib 4.5+ https://www.raylib.com
 *
 *   LICENSE: zlib/libpng
 *
@@ -262,21 +262,21 @@ extern "C" {
 
 // AssertImage()
 #define AssertImage_0() AssertFail_1("No image provided for AssertImage()")
-#define AssertImage_1(image) AssertNotEqual_4((image).data, 0, "AssertImage(%s) - Image not loaded", #image)
-#define AssertImage_2(image, message) AssertNotEqual_3((image).data, 0, message)
-#define AssertImage_3(image, message, p1) AssertNotEqual_4((image).data, 0, message, p1)
-#define AssertImage_4(image, message, p1, p2) AssertNotEqual_5((image).data, 0, message, p1, p2)
-#define AssertImage_5(image, message, p1, p2, p3) AssertNotEqual_6((image).data, 0, message, p1, p2, p3)
-#define AssertImage_6(image, message, p1, p2, p3, p4) AssertNotEqual_7((image).data, 0, message, p1, p2, p3, p4)
+#define AssertImage_1(image) Assert_3(IsImageReady(image), "AssertImage(%s) - Image not loaded", #image)
+#define AssertImage_2(image, message) Assert_2(IsImageReady(image), message)
+#define AssertImage_3(image, message, p1) Assert_3(IsImageReady(image), message, p1)
+#define AssertImage_4(image, message, p1, p2) Assert_4(IsImageReady(image), message, p1, p2)
+#define AssertImage_5(image, message, p1, p2, p3) Assert_5(IsImageReady(image), message, p1, p2, p3)
+#define AssertImage_6(image, message, p1, p2, p3, p4) Assert_6(IsImageReady(image), message, p1, p2, p3, p4)
 
 // AssertTexture()
 #define AssertTexture_0() AssertFail_1("No texture provided for AssertTexture()")
-#define AssertTexture_1(texture) AssertNotEqual_4((texture).id, 0, "AssertTexture(%s) - Texture not loaded", #texture)
-#define AssertTexture_2(texture, message) AssertNotEqual_3((texture).data, 0, message)
-#define AssertTexture_3(texture, message, p1) AssertNotEqual_4((texture).data, 0, message, p1)
-#define AssertTexture_4(texture, message, p1, p2) AssertNotEqual_5((texture).data, 0, message, p1, p2)
-#define AssertTexture_5(texture, message, p1, p2, p3) AssertNotEqual_6((texture).data, 0, message, p1, p2, p3)
-#define AssertTexture_6(texture, message, p1, p2, p3, p4) AssertNotEqual_7((texture).data, 0, message, p1, p2, p3, p4)
+#define AssertTexture_1(texture) Assert_3(IsTextureReady(texture), "AssertTexture(%s) - Texture not loaded", #texture)
+#define AssertTexture_2(texture, message) Assert_2(IsTextureReady(texture), message)
+#define AssertTexture_3(texture, message, p1) Assert_3(IsTextureReady(texture), message, p1)
+#define AssertTexture_4(texture, message, p1, p2) Assert_4(IsTextureReady(texture), message, p1, p2)
+#define AssertTexture_5(texture, message, p1, p2, p3) Assert_5(IsTextureReady(texture), message, p1, p2, p3)
+#define AssertTexture_6(texture, message, p1, p2, p3, p4) Assert_6(IsTextureReady(texture), message, p1, p2, p3, p4)
 
 // AssertImageSame()
 #ifdef RAYLIB_ASSERT_NDEBUG
