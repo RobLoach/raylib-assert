@@ -45,14 +45,17 @@ AssertImage(image, [message], [params]);     // Asserts whether the given image 
 AssertTexture(texture, [message], [params]); // Asserts whether the given texture has been loaded properly.
 AssertColorSame(color1, color2, [message], [params]); // Asserts whether the given colors are the same.
 AssertImageSame(image1, image2, [message], [params]); // Asserts whether the given images are the same.
+AssertVector2Same(vector1, vector2, [message], [params]); // Asserts whether the given vector2s are the same.
 ```
 
 ## Options
 
 You are able to change the behavior of assertions by making some defines prior to including `raylib-assert.h`:
-```
-#define RAYLIB_ASSERT_LOG LOG_FATAL
+``` c
+// #define RAYLIB_ASSERT_LOG LOG_FATAL
 // #define RAYLIB_ASSERT_NDEBUG
+// #define RAYLIB_ASSERT_TRACELOG TraceLog
+// #define RAYLIB_ASSERT_TEXTFORMAT TextFormat
 #include "raylib-assert.h"
 ```
 

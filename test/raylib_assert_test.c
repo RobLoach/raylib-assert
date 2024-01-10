@@ -127,5 +127,16 @@ int main(int argc, char *argv[])
         UnloadImage(image3);
     }
 
+    // AssertVector2Same()
+    {
+        TraceLog(LOG_INFO, "AssertVector2Same()");
+        Vector2 vector1 = {5, 10};
+        Vector2 vector2 = {5, 10};
+        Vector2 vector3 = {2, 1};
+        AssertVector2Same(vector1, vector2);
+        AssertVector2Same(vector1, vector2, "AssertVector2Same() - Expected Pass");
+        AssertVector2Same(vector1, vector3, "AssertVector2Same() - Expected Failure");
+    }
+
     return 0;
 }
