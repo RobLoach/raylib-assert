@@ -138,5 +138,16 @@ int main(int argc, char *argv[])
         AssertVector2Same(vector1, vector3, "AssertVector2Same() - Expected Failure");
     }
 
+    // AssertVector3Same()
+    {
+        TraceLog(LOG_INFO, "AssertVector3Same()");
+        Vector3 vector1 = {5, 10, 15};
+        Vector3 vector2 = {5, 10, 15};
+        Vector3 vector3 = {2, 1, 5};
+        AssertVector3Same(vector1, vector2);
+        AssertVector3Same(vector1, vector2, "AssertVector3Same() - Expected Pass");
+        AssertVector3Same(vector1, vector3, "AssertVector3Same() - Expected Failure");
+    }
+
     return 0;
 }
