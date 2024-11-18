@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.11)
 project(raylib_assert
     DESCRIPTION "raylib-assert: Assertion library for raylib."
     HOMEPAGE_URL "https://github.com/robloach/raylib-assert"
-    VERSION 2.1.0
+    VERSION 3.0.0
     LANGUAGES C
 )
 
