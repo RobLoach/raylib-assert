@@ -29,7 +29,7 @@ int main(void)
 
     Image image = LoadImage("NotFound.png");
     AssertImage(image);
-    // => ASSERT: Image not loaded (image)  (main.c: 40)
+    // => ASSERT: AssertImage(image) - Image not loaded (main.c:40)
 }
 ```
 
