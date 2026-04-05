@@ -36,16 +36,32 @@ int main(void)
 ## API
 
 ``` c
-Assert(condition, [message], [params]);      // Asserts whether the given condition is true, with the given message parameters.
+Assert(condition, [message], [params]);      // Asserts whether the given condition is true.
 AssertNot(condition, [message], [params]);   // Asserts whether the given condition is false.
-AssertEqual(expected, actual, [message], [params]); // Asserts that the expected parameter is the same as the actual parameter.
-AssertNotEqual(unexpected, actual, [message], [params]); // Asserts that the expected parameter is not the same as the actual parameter.
+AssertEqual(actual, expected, [message], [params]); // Asserts that the actual value equals the expected value.
+AssertNotEqual(actual, unexpected, [message], [params]); // Asserts that the actual value does not equal the unexpected value.
 AssertFail([message], [params]);             // Sets a failed assertion, with the given message.
+AssertNull(ptr, [message], [params]);        // Asserts whether the given pointer is NULL.
+AssertNotNull(ptr, [message], [params]);     // Asserts whether the given pointer is not NULL.
+AssertStringEqual(str1, str2, [message], [params]); // Asserts whether the two strings are equal.
+AssertGreater(actual, expected, [message], [params]); // Asserts that actual is greater than expected.
+AssertLess(actual, expected, [message], [params]);    // Asserts that actual is less than expected.
 AssertImage(image, [message], [params]);     // Asserts whether the given image has been loaded properly.
 AssertTexture(texture, [message], [params]); // Asserts whether the given texture has been loaded properly.
-AssertColorSame(color1, color2, [message], [params]); // Asserts whether the given colors are the same.
-AssertImageSame(image1, image2, [message], [params]); // Asserts whether the given images are the same.
-AssertVector2Same(vector1, vector2, [message], [params]); // Asserts whether the given vector2s are the same.
+AssertRenderTexture(target, [message], [params]); // Asserts whether the given render texture has been loaded properly.
+AssertFont(font, [message], [params]);       // Asserts whether the given font has been loaded properly.
+AssertShader(shader, [message], [params]);   // Asserts whether the given shader has been loaded properly.
+AssertModel(model, [message], [params]);     // Asserts whether the given model has been loaded properly.
+AssertWave(wave, [message], [params]);       // Asserts whether the given wave has been loaded properly.
+AssertSound(sound, [message], [params]);     // Asserts whether the given sound has been loaded properly.
+AssertMusic(music, [message], [params]);     // Asserts whether the given music has been loaded properly.
+AssertAudioStream(stream, [message], [params]); // Asserts whether the given audio stream has been loaded properly.
+AssertColorSame(color1, color2, [message], [params]);     // Asserts whether the given colors are the same.
+AssertImageSame(image1, image2, [message], [params]);     // Asserts whether the given images are the same.
+AssertVector2Same(vector1, vector2, [message], [params]); // Asserts whether the given Vector2s are the same.
+AssertVector3Same(vector1, vector2, [message], [params]); // Asserts whether the given Vector3s are the same.
+AssertVector4Same(vector1, vector2, [message], [params]); // Asserts whether the given Vector4s are the same.
+AssertRectangleSame(rect1, rect2, [message], [params]);   // Asserts whether the given Rectangles are the same.
 ```
 
 ## Options
@@ -56,6 +72,7 @@ You are able to change the behavior of assertions by making some defines prior t
 // #define RAYLIB_ASSERT_NDEBUG
 // #define RAYLIB_ASSERT_TRACELOG TraceLog
 // #define RAYLIB_ASSERT_TEXTFORMAT TextFormat
+// #define RAYLIB_ASSERT_EPSILON 0.000001f
 #include "raylib-assert.h"
 ```
 
@@ -89,6 +106,14 @@ Allows changing which `TextFormat()` function the assertion library uses to outp
 
 ``` c
 #define RAYLIB_ASSERT_TEXTFORMAT TextFormat
+```
+
+### `RAYLIB_ASSERT_EPSILON`
+
+The tolerance used for floating-point comparisons in `AssertVector2Same()`, `AssertVector3Same()`, `AssertVector4Same()`, and `AssertRectangleSame()`. Defaults to `0.000001f`.
+
+``` c
+#define RAYLIB_ASSERT_EPSILON 0.000001f
 ```
 
 ## License
