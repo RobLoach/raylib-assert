@@ -3,7 +3,7 @@
 *   raylib-assert - Assertion library for raylib.
 *   https://github.com/robloach/raylib-assert
 *
-*   Version: v3.1.0
+*   Version: v3.2.0
 *
 *   Copyright 2026 Rob Loach (@RobLoach)
 *
@@ -81,8 +81,8 @@ extern "C" {
 
 #ifndef RAYLIB_ASSERT_EPSILON
 /**
- * The epsilon used for floating-point comparisons in AssertVector2Same(),
- * AssertVector3Same(), AssertVector4Same(), and AssertRectangleSame().
+ * The epsilon used for floating-point comparisons in AssertFloatEqual(),
+ * AssertVector2Same(), AssertVector3Same(), AssertVector4Same(), and AssertRectangleSame().
  * Override before including this header to use a different tolerance.
  *
  * @example
@@ -321,6 +321,71 @@ extern "C" {
  * @param p4 (Optional) The fourth parameter in the message.
  */
 #define AssertLess(...) RAYLIB_ASSERT_VA_SELECT(AssertLess, __VA_ARGS__)
+
+/**
+ * Assert whether the actual value is greater than or equal to the expected value.
+ *
+ * @param actual The actual value.
+ * @param expected The value that actual must be greater than or equal to.
+ * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ */
+#define AssertGreaterEqual(...) RAYLIB_ASSERT_VA_SELECT(AssertGreaterEqual, __VA_ARGS__)
+
+/**
+ * Assert whether the actual value is less than or equal to the expected value.
+ *
+ * @param actual The actual value.
+ * @param expected The value that actual must be less than or equal to.
+ * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ */
+#define AssertLessEqual(...) RAYLIB_ASSERT_VA_SELECT(AssertLessEqual, __VA_ARGS__)
+
+/**
+ * Assert whether two floats are equal within RAYLIB_ASSERT_EPSILON.
+ *
+ * @param actual The actual float value.
+ * @param expected The expected float value.
+ * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ */
+#define AssertFloatEqual(...) RAYLIB_ASSERT_VA_SELECT(AssertFloatEqual, __VA_ARGS__)
+
+/**
+ * Assert whether a value is within an inclusive range [min, max].
+ *
+ * @param value The value to check.
+ * @param min The minimum allowed value (inclusive).
+ * @param max The maximum allowed value (inclusive).
+ * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ */
+#define AssertInRange(...) RAYLIB_ASSERT_VA_SELECT(AssertInRange, __VA_ARGS__)
+
+/**
+ * Assert whether two strings are not equal.
+ *
+ * @param str1 The first string to compare.
+ * @param str2 The second string to compare.
+ * @param message (Optional) The message to provide on failed assertions.
+ * @param p1 (Optional) The first parameter in the message.
+ * @param p2 (Optional) The second parameter in the message.
+ * @param p3 (Optional) The third parameter in the message.
+ * @param p4 (Optional) The fourth parameter in the message.
+ */
+#define AssertStringNotEqual(...) RAYLIB_ASSERT_VA_SELECT(AssertStringNotEqual, __VA_ARGS__)
 
 /**
  * Assert whether a texture is loaded.
@@ -747,6 +812,56 @@ extern "C" {
 #define AssertLess_5(actual, expected, message, p1, p2) Assert_4((actual) < (expected), message, p1, p2)
 #define AssertLess_6(actual, expected, message, p1, p2, p3) Assert_5((actual) < (expected), message, p1, p2, p3)
 #define AssertLess_7(actual, expected, message, p1, p2, p3, p4) Assert_6((actual) < (expected), message, p1, p2, p3, p4)
+
+// AssertGreaterEqual()
+#define AssertGreaterEqual_0() AssertFail_1("No values provided for AssertGreaterEqual()")
+#define AssertGreaterEqual_1(value) AssertFail_1("Expected two values for AssertGreaterEqual()")
+#define AssertGreaterEqual_2(actual, expected) Assert_4((actual) >= (expected), "AssertGreaterEqual(%s, %s) - Value is not greater than or equal to expected", #actual, #expected)
+#define AssertGreaterEqual_3(actual, expected, message) Assert_2((actual) >= (expected), message)
+#define AssertGreaterEqual_4(actual, expected, message, p1) Assert_3((actual) >= (expected), message, p1)
+#define AssertGreaterEqual_5(actual, expected, message, p1, p2) Assert_4((actual) >= (expected), message, p1, p2)
+#define AssertGreaterEqual_6(actual, expected, message, p1, p2, p3) Assert_5((actual) >= (expected), message, p1, p2, p3)
+#define AssertGreaterEqual_7(actual, expected, message, p1, p2, p3, p4) Assert_6((actual) >= (expected), message, p1, p2, p3, p4)
+
+// AssertLessEqual()
+#define AssertLessEqual_0() AssertFail_1("No values provided for AssertLessEqual()")
+#define AssertLessEqual_1(value) AssertFail_1("Expected two values for AssertLessEqual()")
+#define AssertLessEqual_2(actual, expected) Assert_4((actual) <= (expected), "AssertLessEqual(%s, %s) - Value is not less than or equal to expected", #actual, #expected)
+#define AssertLessEqual_3(actual, expected, message) Assert_2((actual) <= (expected), message)
+#define AssertLessEqual_4(actual, expected, message, p1) Assert_3((actual) <= (expected), message, p1)
+#define AssertLessEqual_5(actual, expected, message, p1, p2) Assert_4((actual) <= (expected), message, p1, p2)
+#define AssertLessEqual_6(actual, expected, message, p1, p2, p3) Assert_5((actual) <= (expected), message, p1, p2, p3)
+#define AssertLessEqual_7(actual, expected, message, p1, p2, p3, p4) Assert_6((actual) <= (expected), message, p1, p2, p3, p4)
+
+// AssertFloatEqual()
+#define AssertFloatEqual_0() AssertFail_1("No values provided for AssertFloatEqual()")
+#define AssertFloatEqual_1(value) AssertFail_1("Expected two values for AssertFloatEqual()")
+#define AssertFloatEqual_2(actual, expected) Assert_4(RAYLIB_ASSERT_FLOAT_EQ(actual, expected), "AssertFloatEqual(%s, %s) - Floats are not equal within epsilon", #actual, #expected)
+#define AssertFloatEqual_3(actual, expected, message) Assert_2(RAYLIB_ASSERT_FLOAT_EQ(actual, expected), message)
+#define AssertFloatEqual_4(actual, expected, message, p1) Assert_3(RAYLIB_ASSERT_FLOAT_EQ(actual, expected), message, p1)
+#define AssertFloatEqual_5(actual, expected, message, p1, p2) Assert_4(RAYLIB_ASSERT_FLOAT_EQ(actual, expected), message, p1, p2)
+#define AssertFloatEqual_6(actual, expected, message, p1, p2, p3) Assert_5(RAYLIB_ASSERT_FLOAT_EQ(actual, expected), message, p1, p2, p3)
+#define AssertFloatEqual_7(actual, expected, message, p1, p2, p3, p4) Assert_6(RAYLIB_ASSERT_FLOAT_EQ(actual, expected), message, p1, p2, p3, p4)
+
+// AssertInRange()
+#define AssertInRange_0() AssertFail_1("No values provided for AssertInRange()")
+#define AssertInRange_1(value) AssertFail_1("Expected three values for AssertInRange()")
+#define AssertInRange_2(value, min) AssertFail_1("Expected three values for AssertInRange()")
+#define AssertInRange_3(value, min, max) Assert_5((value) >= (min) && (value) <= (max), "AssertInRange(%s, %s, %s) - Value is not within range", #value, #min, #max)
+#define AssertInRange_4(value, min, max, message) Assert_2((value) >= (min) && (value) <= (max), message)
+#define AssertInRange_5(value, min, max, message, p1) Assert_3((value) >= (min) && (value) <= (max), message, p1)
+#define AssertInRange_6(value, min, max, message, p1, p2) Assert_4((value) >= (min) && (value) <= (max), message, p1, p2)
+#define AssertInRange_7(value, min, max, message, p1, p2, p3) Assert_5((value) >= (min) && (value) <= (max), message, p1, p2, p3)
+
+// AssertStringNotEqual()
+#define AssertStringNotEqual_0() AssertFail_1("No strings provided for AssertStringNotEqual()")
+#define AssertStringNotEqual_1(str) AssertFail_1("Expected two strings for AssertStringNotEqual()")
+#define AssertStringNotEqual_2(str1, str2) Assert_4(!TextIsEqual(str1, str2), "AssertStringNotEqual(%s, %s) - Strings are equal", #str1, #str2)
+#define AssertStringNotEqual_3(str1, str2, message) Assert_2(!TextIsEqual(str1, str2), message)
+#define AssertStringNotEqual_4(str1, str2, message, p1) Assert_3(!TextIsEqual(str1, str2), message, p1)
+#define AssertStringNotEqual_5(str1, str2, message, p1, p2) Assert_4(!TextIsEqual(str1, str2), message, p1, p2)
+#define AssertStringNotEqual_6(str1, str2, message, p1, p2, p3) Assert_5(!TextIsEqual(str1, str2), message, p1, p2, p3)
+#define AssertStringNotEqual_7(str1, str2, message, p1, p2, p3, p4) Assert_6(!TextIsEqual(str1, str2), message, p1, p2, p3, p4)
 
 // AssertRenderTexture()
 #define AssertRenderTexture_0() AssertFail_1("No render texture provided for AssertRenderTexture()")

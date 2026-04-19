@@ -294,6 +294,96 @@ int main(int argc, char *argv[])
         AssertLess(10, 5, "AssertLess() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
     }
 
+    // AssertGreaterEqual()
+    {
+        TraceLog(LOG_INFO, "AssertGreaterEqual()");
+        AssertGreaterEqual(10, 5);
+        AssertGreaterEqual(10, 10);
+        AssertGreaterEqual(10, 5, "AssertGreaterEqual() - Expected Pass");
+        AssertGreaterEqual(10, 10, "AssertGreaterEqual() - Expected Pass (equal)");
+        AssertGreaterEqual(10, 5, "AssertGreaterEqual() - Expected Pass - %i", 1);
+        AssertGreaterEqual(10, 5, "AssertGreaterEqual() - Expected Pass - %i, %i", 1, 2);
+        AssertGreaterEqual(10, 5, "AssertGreaterEqual() - Expected Pass - %i, %i, %i", 1, 2, 3);
+        AssertGreaterEqual(10, 5, "AssertGreaterEqual() - Expected Pass - %i, %i, %i, %i", 1, 2, 3, 4);
+        AssertGreaterEqual(5, 10);
+        AssertGreaterEqual(5, 10, "AssertGreaterEqual() - Expected Fail");
+        AssertGreaterEqual(5, 10, "AssertGreaterEqual() - Expected Fail - %i", 1);
+        AssertGreaterEqual(5, 10, "AssertGreaterEqual() - Expected Fail - %i, %i", 1, 2);
+        AssertGreaterEqual(5, 10, "AssertGreaterEqual() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        AssertGreaterEqual(5, 10, "AssertGreaterEqual() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
+    // AssertLessEqual()
+    {
+        TraceLog(LOG_INFO, "AssertLessEqual()");
+        AssertLessEqual(5, 10);
+        AssertLessEqual(10, 10);
+        AssertLessEqual(5, 10, "AssertLessEqual() - Expected Pass");
+        AssertLessEqual(10, 10, "AssertLessEqual() - Expected Pass (equal)");
+        AssertLessEqual(5, 10, "AssertLessEqual() - Expected Pass - %i", 1);
+        AssertLessEqual(5, 10, "AssertLessEqual() - Expected Pass - %i, %i", 1, 2);
+        AssertLessEqual(5, 10, "AssertLessEqual() - Expected Pass - %i, %i, %i", 1, 2, 3);
+        AssertLessEqual(5, 10, "AssertLessEqual() - Expected Pass - %i, %i, %i, %i", 1, 2, 3, 4);
+        AssertLessEqual(10, 5);
+        AssertLessEqual(10, 5, "AssertLessEqual() - Expected Fail");
+        AssertLessEqual(10, 5, "AssertLessEqual() - Expected Fail - %i", 1);
+        AssertLessEqual(10, 5, "AssertLessEqual() - Expected Fail - %i, %i", 1, 2);
+        AssertLessEqual(10, 5, "AssertLessEqual() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        AssertLessEqual(10, 5, "AssertLessEqual() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
+    // AssertFloatEqual()
+    {
+        TraceLog(LOG_INFO, "AssertFloatEqual()");
+        AssertFloatEqual(1.0f, 1.0f);
+        AssertFloatEqual(1.0f, 1.0f, "AssertFloatEqual() - Expected Pass");
+        AssertFloatEqual(1.0f, 1.0f, "AssertFloatEqual() - Expected Pass - %i", 1);
+        AssertFloatEqual(1.0f, 1.0f, "AssertFloatEqual() - Expected Pass - %i, %i", 1, 2);
+        AssertFloatEqual(1.0f, 1.0f, "AssertFloatEqual() - Expected Pass - %i, %i, %i", 1, 2, 3);
+        AssertFloatEqual(1.0f, 1.0f, "AssertFloatEqual() - Expected Pass - %i, %i, %i, %i", 1, 2, 3, 4);
+        AssertFloatEqual(1.0f, 2.0f);
+        AssertFloatEqual(1.0f, 2.0f, "AssertFloatEqual() - Expected Fail");
+        AssertFloatEqual(1.0f, 2.0f, "AssertFloatEqual() - Expected Fail - %i", 1);
+        AssertFloatEqual(1.0f, 2.0f, "AssertFloatEqual() - Expected Fail - %i, %i", 1, 2);
+        AssertFloatEqual(1.0f, 2.0f, "AssertFloatEqual() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        AssertFloatEqual(1.0f, 2.0f, "AssertFloatEqual() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
+    // AssertInRange()
+    {
+        TraceLog(LOG_INFO, "AssertInRange()");
+        AssertInRange(5, 1, 10);
+        AssertInRange(1, 1, 10);
+        AssertInRange(10, 1, 10);
+        AssertInRange(5, 1, 10, "AssertInRange() - Expected Pass");
+        AssertInRange(5, 1, 10, "AssertInRange() - Expected Pass - %i", 1);
+        AssertInRange(5, 1, 10, "AssertInRange() - Expected Pass - %i, %i", 1, 2);
+        AssertInRange(5, 1, 10, "AssertInRange() - Expected Pass - %i, %i, %i", 1, 2, 3);
+        AssertInRange(0, 1, 10);
+        AssertInRange(11, 1, 10);
+        AssertInRange(0, 1, 10, "AssertInRange() - Expected Fail");
+        AssertInRange(0, 1, 10, "AssertInRange() - Expected Fail - %i", 1);
+        AssertInRange(0, 1, 10, "AssertInRange() - Expected Fail - %i, %i", 1, 2);
+        AssertInRange(0, 1, 10, "AssertInRange() - Expected Fail - %i, %i, %i", 1, 2, 3);
+    }
+
+    // AssertStringNotEqual()
+    {
+        TraceLog(LOG_INFO, "AssertStringNotEqual()");
+        AssertStringNotEqual("hello", "world");
+        AssertStringNotEqual("hello", "world", "AssertStringNotEqual() - Expected Pass");
+        AssertStringNotEqual("hello", "world", "AssertStringNotEqual() - Expected Pass - %i", 1);
+        AssertStringNotEqual("hello", "world", "AssertStringNotEqual() - Expected Pass - %i, %i", 1, 2);
+        AssertStringNotEqual("hello", "world", "AssertStringNotEqual() - Expected Pass - %i, %i, %i", 1, 2, 3);
+        AssertStringNotEqual("hello", "world", "AssertStringNotEqual() - Expected Pass - %i, %i, %i, %i", 1, 2, 3, 4);
+        AssertStringNotEqual("hello", "hello");
+        AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - Expected Fail");
+        AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - Expected Fail - %i", 1);
+        AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - Expected Fail - %i, %i", 1, 2);
+        AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
     // AssertTexture()
     {
         TraceLog(LOG_INFO, "AssertTexture()");
