@@ -115,6 +115,20 @@ int main(int argc, char *argv[])
     AssertImage(image, "AssertImage() - Expected Fail - %i, %i, %i", 1, 2, 3);
     AssertImage(image, "AssertImage() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
 
+    // AssertImageSize()
+    TraceLog(LOG_INFO, "AssertImageSize()");
+    {
+        Image sizedImage = LoadImage("resources/test-image.png");
+        AssertImageSize(sizedImage, sizedImage.width, sizedImage.height);
+        AssertImageSize(sizedImage, sizedImage.width, sizedImage.height, "AssertImageSize() - Expected Pass");
+        AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1);
+        AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1, "AssertImageSize() - Expected Fail");
+        AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1, "AssertImageSize() - Expected Fail - %i", 1);
+        AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1, "AssertImageSize() - Expected Fail - %i, %i", 1, 2);
+        AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1, "AssertImageSize() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        UnloadImage(sizedImage);
+    }
+
     // AssertColorSame()
     TraceLog(LOG_INFO, "AssertColorSame()");
     {
@@ -129,6 +143,26 @@ int main(int argc, char *argv[])
         AssertColorSame(red, blue, "AssertColorSame() - Expected Fail - %i, %i", 1, 2);
         AssertColorSame(red, blue, "AssertColorSame() - Expected Fail - %i, %i, %i", 1, 2, 3);
         AssertColorSame(red, blue, "AssertColorSame() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
+    // AssertColorApprox()
+    TraceLog(LOG_INFO, "AssertColorApprox()");
+    {
+        Color red = RED;
+        Color almostRed = {
+            (unsigned char)(red.r > 2 ? red.r - 2 : red.r),
+            (unsigned char)(red.g < 254 ? red.g + 1 : red.g),
+            (unsigned char)(red.b < 253 ? red.b + 2 : red.b),
+            red.a
+        };
+        Color blue = BLUE;
+        AssertColorApprox(red, almostRed, 8);
+        AssertColorApprox(red, almostRed, 8, "AssertColorApprox() - Expected Pass");
+        AssertColorApprox(red, blue, 8);
+        AssertColorApprox(red, blue, 8, "AssertColorApprox() - Expected Fail");
+        AssertColorApprox(red, blue, 8, "AssertColorApprox() - Expected Fail - %i", 1);
+        AssertColorApprox(red, blue, 8, "AssertColorApprox() - Expected Fail - %i, %i", 1, 2);
+        AssertColorApprox(red, blue, 8, "AssertColorApprox() - Expected Fail - %i, %i, %i", 1, 2, 3);
     }
 
     // AssertImageSame()
@@ -396,6 +430,47 @@ int main(int argc, char *argv[])
         AssertTexture(texture, "AssertTexture() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
     }
 
+    // AssertMesh()
+    {
+        TraceLog(LOG_INFO, "AssertMesh()");
+        float vertices[9] = {
+            0.0f, 0.0f, 0.0f,
+            1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f
+        };
+        Mesh validMesh = {0};
+        validMesh.vertexCount = 3;
+        validMesh.triangleCount = 1;
+        validMesh.vertices = vertices;
+        Mesh invalidMesh = {0};
+        AssertMesh(validMesh);
+        AssertMesh(validMesh, "AssertMesh() - Expected Pass");
+        AssertMesh(invalidMesh);
+        AssertMesh(invalidMesh, "AssertMesh() - Expected Fail");
+        AssertMesh(invalidMesh, "AssertMesh() - Expected Fail - %i", 1);
+        AssertMesh(invalidMesh, "AssertMesh() - Expected Fail - %i, %i", 1, 2);
+        AssertMesh(invalidMesh, "AssertMesh() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        AssertMesh(invalidMesh, "AssertMesh() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
+    // AssertMaterial()
+    {
+        TraceLog(LOG_INFO, "AssertMaterial()");
+        MaterialMap maps[MATERIAL_MAP_BRDF + 1] = {0};
+        Material validMaterial = {0};
+        validMaterial.shader.id = 1;
+        validMaterial.maps = maps;
+        Material invalidMaterial = {0};
+        AssertMaterial(validMaterial);
+        AssertMaterial(validMaterial, "AssertMaterial() - Expected Pass");
+        AssertMaterial(invalidMaterial);
+        AssertMaterial(invalidMaterial, "AssertMaterial() - Expected Fail");
+        AssertMaterial(invalidMaterial, "AssertMaterial() - Expected Fail - %i", 1);
+        AssertMaterial(invalidMaterial, "AssertMaterial() - Expected Fail - %i, %i", 1, 2);
+        AssertMaterial(invalidMaterial, "AssertMaterial() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        AssertMaterial(invalidMaterial, "AssertMaterial() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
     // AssertRenderTexture()
     {
         TraceLog(LOG_INFO, "AssertRenderTexture()");
@@ -442,6 +517,25 @@ int main(int argc, char *argv[])
         AssertModel(model, "AssertModel() - Expected Fail - %i, %i", 1, 2);
         AssertModel(model, "AssertModel() - Expected Fail - %i, %i, %i", 1, 2, 3);
         AssertModel(model, "AssertModel() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
+    }
+
+    // AssertModelAnimation()
+    {
+        TraceLog(LOG_INFO, "AssertModelAnimation()");
+        Model validModel = {0};
+        validModel.skeleton.boneCount = 2;
+        ModelAnimation validAnimation = {0};
+        validAnimation.boneCount = 2;
+        ModelAnimation invalidAnimation = {0};
+        invalidAnimation.boneCount = 1;
+        AssertModelAnimation(validModel, validAnimation);
+        AssertModelAnimation(validModel, validAnimation, "AssertModelAnimation() - Expected Pass");
+        AssertModelAnimation(validModel, invalidAnimation);
+        AssertModelAnimation(validModel, invalidAnimation, "AssertModelAnimation() - Expected Fail");
+        AssertModelAnimation(validModel, invalidAnimation, "AssertModelAnimation() - Expected Fail - %i", 1);
+        AssertModelAnimation(validModel, invalidAnimation, "AssertModelAnimation() - Expected Fail - %i, %i", 1, 2);
+        AssertModelAnimation(validModel, invalidAnimation, "AssertModelAnimation() - Expected Fail - %i, %i, %i", 1, 2, 3);
+        AssertModelAnimation(validModel, invalidAnimation, "AssertModelAnimation() - Expected Fail - %i, %i, %i, %i", 1, 2, 3, 4);
     }
 
     // AssertWave()

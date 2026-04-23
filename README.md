@@ -2,6 +2,8 @@
 
 Minimalistic [assertion](https://en.wikipedia.org/wiki/Assertion_(software_development)) library for [raylib](https://www.raylib.com).
 
+Targets `raylib` `6.0+`.
+
 ## Example
 
 ``` c
@@ -44,25 +46,41 @@ AssertFail([message], [params]);             // Sets a failed assertion, with th
 AssertNull(ptr, [message], [params]);        // Asserts whether the given pointer is NULL.
 AssertNotNull(ptr, [message], [params]);     // Asserts whether the given pointer is not NULL.
 AssertStringEqual(str1, str2, [message], [params]); // Asserts whether the two strings are equal.
+AssertStringNotEqual(str1, str2, [message], [params]); // Asserts whether the two strings are not equal.
 AssertGreater(actual, expected, [message], [params]); // Asserts that actual is greater than expected.
 AssertLess(actual, expected, [message], [params]);    // Asserts that actual is less than expected.
+AssertGreaterEqual(actual, expected, [message], [params]); // Asserts that actual is greater than or equal to expected.
+AssertLessEqual(actual, expected, [message], [params]); // Asserts that actual is less than or equal to expected.
+AssertFloatEqual(actual, expected, [message], [params]); // Asserts that two floats are equal within `RAYLIB_ASSERT_EPSILON`.
+AssertInRange(value, min, max, [message], [params]); // Asserts that a value is within the inclusive range `[min, max]`.
 AssertImage(image, [message], [params]);     // Asserts whether the given image has been loaded properly.
+AssertImageSize(image, width, height, [message], [params]); // Asserts whether the given image matches the expected size.
 AssertTexture(texture, [message], [params]); // Asserts whether the given texture has been loaded properly.
+AssertMesh(mesh, [message], [params]);       // Asserts whether the given mesh contains valid CPU-side geometry data.
+AssertMaterial(material, [message], [params]); // Asserts whether the given material has been loaded properly.
 AssertRenderTexture(target, [message], [params]); // Asserts whether the given render texture has been loaded properly.
 AssertFont(font, [message], [params]);       // Asserts whether the given font has been loaded properly.
 AssertShader(shader, [message], [params]);   // Asserts whether the given shader has been loaded properly.
 AssertModel(model, [message], [params]);     // Asserts whether the given model has been loaded properly.
+AssertModelAnimation(model, animation, [message], [params]); // Asserts whether the given animation is valid for the given model.
 AssertWave(wave, [message], [params]);       // Asserts whether the given wave has been loaded properly.
 AssertSound(sound, [message], [params]);     // Asserts whether the given sound has been loaded properly.
 AssertMusic(music, [message], [params]);     // Asserts whether the given music has been loaded properly.
 AssertAudioStream(stream, [message], [params]); // Asserts whether the given audio stream has been loaded properly.
 AssertColorSame(color1, color2, [message], [params]);     // Asserts whether the given colors are the same.
+AssertColorApprox(color1, color2, tolerance, [message], [params]); // Asserts whether the given colors are within a per-channel tolerance.
 AssertImageSame(image1, image2, [message], [params]);     // Asserts whether the given images are the same.
 AssertVector2Same(vector1, vector2, [message], [params]); // Asserts whether the given Vector2s are the same.
 AssertVector3Same(vector1, vector2, [message], [params]); // Asserts whether the given Vector3s are the same.
 AssertVector4Same(vector1, vector2, [message], [params]); // Asserts whether the given Vector4s are the same.
 AssertRectangleSame(rect1, rect2, [message], [params]);   // Asserts whether the given Rectangles are the same.
 ```
+
+Notes:
+
+- `AssertMesh()` validates basic CPU-side mesh data (`vertexCount`, `triangleCount`, and `vertices`).
+- `AssertModelAnimation()` maps to raylib's `IsModelAnimationValid(model, animation)` check.
+- `AssertColorApprox()` uses the explicit `tolerance` you provide instead of `RAYLIB_ASSERT_EPSILON`.
 
 ## Options
 
@@ -110,7 +128,7 @@ Allows changing which `TextFormat()` function the assertion library uses to outp
 
 ### `RAYLIB_ASSERT_EPSILON`
 
-The tolerance used for floating-point comparisons in `AssertVector2Same()`, `AssertVector3Same()`, `AssertVector4Same()`, and `AssertRectangleSame()`. Defaults to `0.000001f`.
+The tolerance used for floating-point comparisons in `AssertFloatEqual()`, `AssertVector2Same()`, `AssertVector3Same()`, `AssertVector4Same()`, and `AssertRectangleSame()`. Defaults to `0.000001f`.
 
 ``` c
 #define RAYLIB_ASSERT_EPSILON 0.000001f
