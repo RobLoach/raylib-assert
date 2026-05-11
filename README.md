@@ -86,6 +86,7 @@ Notes:
 
 You are able to change the behavior of assertions by making some defines prior to including `raylib-assert.h`:
 ``` c
+#include "raylib.h"
 // #define RAYLIB_ASSERT_LOG LOG_FATAL
 // #define RAYLIB_ASSERT_NDEBUG
 // #define RAYLIB_ASSERT_TRACELOG TraceLog

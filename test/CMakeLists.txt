@@ -39,3 +39,7 @@ file(COPY ${test_resources} DESTINATION "resources/")
 
 # Build the test
 add_test(NAME raylib_assert_test COMMAND raylib_assert_test)
+
+# Always print test output if the test fails.
+list(APPEND CMAKE_CTEST_ARGUMENTS "--output-on-failure")
+set(CMAKE_CTEST_ARGUMENTS "${CMAKE_CTEST_ARGUMENTS}" PARENT_SCOPE)
