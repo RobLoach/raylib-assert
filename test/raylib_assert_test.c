@@ -399,6 +399,16 @@ int main(int argc, char *argv[]) {
         AssertStringEqual("hello", "world", "AssertStringEqual() - %i, %i", 1, 2);
         AssertStringEqual("hello", "world", "AssertStringEqual() - %i, %i, %i", 1, 2, 3);
         AssertStringEqual("hello", "world", "AssertStringEqual() - %i, %i, %i, %i", 1, 2, 3, 4);
+
+        // NULL handling: two NULLs are equal
+        SetExpectPass();
+        AssertStringEqual(NULL, NULL);
+
+        // NULL handling: NULL and non-NULL are not equal
+        SetExpectFail();
+        AssertStringEqual(NULL, "x");
+        SetExpectFail();
+        AssertStringEqual("x", NULL);
     }
 
     // AssertGreater()
@@ -537,6 +547,15 @@ int main(int argc, char *argv[]) {
         AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - %i, %i", 1, 2);
         AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - %i, %i, %i", 1, 2, 3);
         AssertStringNotEqual("hello", "hello", "AssertStringNotEqual() - %i, %i, %i, %i", 1, 2, 3, 4);
+
+        // NULL handling: NULL and non-NULL are not equal
+        SetExpectPass();
+        AssertStringNotEqual(NULL, "x");
+        AssertStringNotEqual("x", NULL);
+
+        // NULL handling: two NULLs are equal
+        SetExpectFail();
+        AssertStringNotEqual(NULL, NULL);
     }
 
     // AssertTexture()

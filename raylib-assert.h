@@ -117,9 +117,17 @@ static inline bool RaylibAssertMeshValid(Mesh mesh)
     return mesh.vertexCount > 0 && mesh.triangleCount > 0 && mesh.vertices != NULL;
 }
 
+// Internal helper: true when both strings are NULL, or both are non-NULL with equal contents.
+static inline bool RaylibAssertStringEq(const char *a, const char *b)
+{
+    if (a == NULL || b == NULL) return a == b;
+    return TextIsEqual(a, b);
+}
+
 #define RAYLIB_ASSERT_FLOAT_EQ(a, b) RaylibAssertFloatEq((float)(a), (float)(b))
 #define RAYLIB_ASSERT_CHANNEL_WITHIN(a, b, tolerance) RaylibAssertChannelWithin((int)(a), (int)(b), (int)(tolerance))
 #define RAYLIB_ASSERT_MESH_VALID(mesh) RaylibAssertMeshValid((mesh))
+#define RAYLIB_ASSERT_STRING_EQ(a, b) RaylibAssertStringEq((a), (b))
 
 // Variadic Arguments
 #define RAYLIB_ASSERT_CAT(a, b) RAYLIB_ASSERT_CAT_I(a, b)
@@ -949,12 +957,12 @@ static inline bool RaylibAssertMeshValid(Mesh mesh)
 // AssertStringEqual()
 #define AssertStringEqual_0() AssertFail_1("No strings provided for AssertStringEqual()")
 #define AssertStringEqual_1(str) AssertFail_1("Expected two strings for AssertStringEqual()")
-#define AssertStringEqual_2(str1, str2) Assert_4(TextIsEqual(str1, str2), "AssertStringEqual(%s, %s) - Strings are not equal", #str1, #str2)
-#define AssertStringEqual_3(str1, str2, message) Assert_2(TextIsEqual(str1, str2), message)
-#define AssertStringEqual_4(str1, str2, message, p1) Assert_3(TextIsEqual(str1, str2), message, p1)
-#define AssertStringEqual_5(str1, str2, message, p1, p2) Assert_4(TextIsEqual(str1, str2), message, p1, p2)
-#define AssertStringEqual_6(str1, str2, message, p1, p2, p3) Assert_5(TextIsEqual(str1, str2), message, p1, p2, p3)
-#define AssertStringEqual_7(str1, str2, message, p1, p2, p3, p4) Assert_6(TextIsEqual(str1, str2), message, p1, p2, p3, p4)
+#define AssertStringEqual_2(str1, str2) Assert_4(RAYLIB_ASSERT_STRING_EQ(str1, str2), "AssertStringEqual(%s, %s) - Strings are not equal", #str1, #str2)
+#define AssertStringEqual_3(str1, str2, message) Assert_2(RAYLIB_ASSERT_STRING_EQ(str1, str2), message)
+#define AssertStringEqual_4(str1, str2, message, p1) Assert_3(RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1)
+#define AssertStringEqual_5(str1, str2, message, p1, p2) Assert_4(RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1, p2)
+#define AssertStringEqual_6(str1, str2, message, p1, p2, p3) Assert_5(RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1, p2, p3)
+#define AssertStringEqual_7(str1, str2, message, p1, p2, p3, p4) Assert_6(RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1, p2, p3, p4)
 
 // AssertGreater()
 #define AssertGreater_0() AssertFail_1("No values provided for AssertGreater()")
@@ -1019,12 +1027,12 @@ static inline bool RaylibAssertMeshValid(Mesh mesh)
 // AssertStringNotEqual()
 #define AssertStringNotEqual_0() AssertFail_1("No strings provided for AssertStringNotEqual()")
 #define AssertStringNotEqual_1(str) AssertFail_1("Expected two strings for AssertStringNotEqual()")
-#define AssertStringNotEqual_2(str1, str2) Assert_4(!TextIsEqual(str1, str2), "AssertStringNotEqual(%s, %s) - Strings are equal", #str1, #str2)
-#define AssertStringNotEqual_3(str1, str2, message) Assert_2(!TextIsEqual(str1, str2), message)
-#define AssertStringNotEqual_4(str1, str2, message, p1) Assert_3(!TextIsEqual(str1, str2), message, p1)
-#define AssertStringNotEqual_5(str1, str2, message, p1, p2) Assert_4(!TextIsEqual(str1, str2), message, p1, p2)
-#define AssertStringNotEqual_6(str1, str2, message, p1, p2, p3) Assert_5(!TextIsEqual(str1, str2), message, p1, p2, p3)
-#define AssertStringNotEqual_7(str1, str2, message, p1, p2, p3, p4) Assert_6(!TextIsEqual(str1, str2), message, p1, p2, p3, p4)
+#define AssertStringNotEqual_2(str1, str2) Assert_4(!RAYLIB_ASSERT_STRING_EQ(str1, str2), "AssertStringNotEqual(%s, %s) - Strings are equal", #str1, #str2)
+#define AssertStringNotEqual_3(str1, str2, message) Assert_2(!RAYLIB_ASSERT_STRING_EQ(str1, str2), message)
+#define AssertStringNotEqual_4(str1, str2, message, p1) Assert_3(!RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1)
+#define AssertStringNotEqual_5(str1, str2, message, p1, p2) Assert_4(!RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1, p2)
+#define AssertStringNotEqual_6(str1, str2, message, p1, p2, p3) Assert_5(!RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1, p2, p3)
+#define AssertStringNotEqual_7(str1, str2, message, p1, p2, p3, p4) Assert_6(!RAYLIB_ASSERT_STRING_EQ(str1, str2), message, p1, p2, p3, p4)
 
 // AssertRenderTexture()
 #define AssertRenderTexture_0() AssertFail_1("No render texture provided for AssertRenderTexture()")
