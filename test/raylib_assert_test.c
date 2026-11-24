@@ -238,9 +238,15 @@ int main(int argc, char *argv[]) {
 
     // AssertImageSame()
     {
-        Image image1;
+        Image image1 = { 0 };
         Image image2 = LoadImage("resources/test-image.png");
         Image image3 = LoadImage("resources/test-image.png");
+
+        // Same size and format, but one pixel differs.
+        Image image4 = ImageCopy(image2);
+        Color pixel = GetImageColor(image4, 0, 0);
+        Color changed = { (unsigned char)(255 - pixel.r), (unsigned char)(255 - pixel.g), (unsigned char)(255 - pixel.b), (unsigned char)(255 - pixel.a) };
+        ImageDrawPixel(&image4, 0, 0, changed);
 
         SetExpectPass();
         AssertImageSame(image2, image3);
@@ -249,8 +255,13 @@ int main(int argc, char *argv[]) {
         SetExpectFail();
         AssertImageSame(image1, image2, "AssertImageSame()");
 
+        // Pixel difference must fail on its own section.
+        SetExpectFail();
+        AssertImageSame(image2, image4, "AssertImageSame() - pixels differ");
+
         UnloadImage(image2);
         UnloadImage(image3);
+        UnloadImage(image4);
     }
 
     // AssertVector2Same()
