@@ -144,6 +144,7 @@ int main(int argc, char *argv[]) {
 
     // AssertFail()
     SetExpectFail();
+    AssertFail();
     AssertFail("AssertFail()");
     AssertFail("AssertFail() - %i", 1);
     AssertFail("AssertFail() - %i, %i", 1, 2);

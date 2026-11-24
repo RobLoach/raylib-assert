@@ -682,7 +682,9 @@ static inline bool RaylibAssertImageSize(Image image, int width, int height)
 #define AssertFail_7(message, p1, p2, p3, p4, p5, p6)
 #else
 #define AssertFail_0() RAYLIB_ASSERT_TRACELOG(RAYLIB_ASSERT_LOG, "ASSERT: AssertFail() (%s:%i)", __FILE__, __LINE__)
-#define AssertFail_1(message) RAYLIB_ASSERT_TRACELOG(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", message, __FILE__, __LINE__)
+// AssertFail() is dispatched as AssertFail_1() with an empty message: "- 0" keeps the empty case a valid expression.
+#define RAYLIB_ASSERT_FAIL_MESSAGE(message) (sizeof(#message) > 1 ? (const char *)(message - 0) : "AssertFail()")
+#define AssertFail_1(message) RAYLIB_ASSERT_TRACELOG(RAYLIB_ASSERT_LOG, "ASSERT: %s (%s:%i)", RAYLIB_ASSERT_FAIL_MESSAGE(message), __FILE__, __LINE__)
 #define AssertFail_2(message, p1) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1))
 #define AssertFail_3(message, p1, p2) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2))
 #define AssertFail_4(message, p1, p2, p3) AssertFail_1(RAYLIB_ASSERT_TEXTFORMAT(message, p1, p2, p3))
