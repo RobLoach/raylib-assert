@@ -2,7 +2,7 @@
 
 Minimalistic [assertion](https://en.wikipedia.org/wiki/Assertion_(software_development)) library for [raylib](https://www.raylib.com).
 
-Targets `raylib` `6.0+`.
+Targets `raylib` `6.2+`.
 
 ## Example
 

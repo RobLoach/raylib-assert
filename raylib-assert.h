@@ -8,7 +8,7 @@
 *   Copyright 2026 Rob Loach (@RobLoach)
 *
 *   DEPENDENCIES:
-*       raylib 6.0+ https://www.raylib.com
+*       raylib 6.2+ https://www.raylib.com
 *
 *   LICENSE: zlib/libpng
 *
