@@ -762,20 +762,26 @@ static inline bool RaylibAssertImageSize(Image image, int width, int height)
         AssertFail_1(message); \
         break; \
     } \
-    Color* colors1 = LoadImageColors(raylibAssertImage1); \
-    Color* colors2 = LoadImageColors(raylibAssertImage2); \
-    bool failure = false; \
-    for (int i = 0; i < raylibAssertImage1.width * raylibAssertImage1.height; i++) { \
-        Color color1 = colors1[i]; \
-        Color color2 = colors2[i]; \
-        if (color1.r != color2.r || color1.g != color2.g || color1.b != color2.b || color1.a != color2.a) { \
-            failure = true; \
-            break; \
+    Color* raylibAssertColors1 = LoadImageColors(raylibAssertImage1); \
+    Color* raylibAssertColors2 = LoadImageColors(raylibAssertImage2); \
+    bool raylibAssertFailure = (raylibAssertColors1 == NULL || raylibAssertColors2 == NULL); \
+    if (!raylibAssertFailure) { \
+        for (int raylibAssertIndex = 0; raylibAssertIndex < raylibAssertImage1.width * raylibAssertImage1.height; raylibAssertIndex++) { \
+            Color raylibAssertColor1 = raylibAssertColors1[raylibAssertIndex]; \
+            Color raylibAssertColor2 = raylibAssertColors2[raylibAssertIndex]; \
+            if (raylibAssertColor1.r != raylibAssertColor2.r || raylibAssertColor1.g != raylibAssertColor2.g || raylibAssertColor1.b != raylibAssertColor2.b || raylibAssertColor1.a != raylibAssertColor2.a) { \
+                raylibAssertFailure = true; \
+                break; \
+            } \
         } \
     } \
-    UnloadImageColors(colors1); \
-    UnloadImageColors(colors2); \
-    if (failure) { \
+    if (raylibAssertColors1 != NULL) { \
+        UnloadImageColors(raylibAssertColors1); \
+    } \
+    if (raylibAssertColors2 != NULL) { \
+        UnloadImageColors(raylibAssertColors2); \
+    } \
+    if (raylibAssertFailure) { \
         AssertFail_1(message); \
     } \
 } while(0)

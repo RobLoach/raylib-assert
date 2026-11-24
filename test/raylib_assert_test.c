@@ -271,6 +271,10 @@ int main(int argc, char *argv[]) {
         AssertImageSame(image2, image3);
         AssertImageSame(image2, image3, "AssertImageSame()");
 
+        // User variables in the message must not be shadowed by the macro
+        int i = 42;
+        AssertImageSame(image2, image3, "AssertImageSame() - i is %i", i);
+
         SetExpectFail();
         AssertImageSame(image1, image2, "AssertImageSame()");
 
