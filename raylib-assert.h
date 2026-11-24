@@ -124,10 +124,24 @@ static inline bool RaylibAssertStringEq(const char *a, const char *b)
     return TextIsEqual(a, b);
 }
 
+// Internal helper: true when value is within [min, max]. Evaluates each argument exactly once.
+static inline bool RaylibAssertInRange(double value, double min, double max)
+{
+    return value >= min && value <= max;
+}
+
+// Internal helper: true when the image matches the given dimensions. Evaluates the image exactly once.
+static inline bool RaylibAssertImageSize(Image image, int width, int height)
+{
+    return image.width == width && image.height == height;
+}
+
 #define RAYLIB_ASSERT_FLOAT_EQ(a, b) RaylibAssertFloatEq((float)(a), (float)(b))
 #define RAYLIB_ASSERT_CHANNEL_WITHIN(a, b, tolerance) RaylibAssertChannelWithin((int)(a), (int)(b), (int)(tolerance))
 #define RAYLIB_ASSERT_MESH_VALID(mesh) RaylibAssertMeshValid((mesh))
 #define RAYLIB_ASSERT_STRING_EQ(a, b) RaylibAssertStringEq((a), (b))
+#define RAYLIB_ASSERT_IN_RANGE(value, min, max) RaylibAssertInRange((double)(value), (double)(min), (double)(max))
+#define RAYLIB_ASSERT_IMAGE_SIZE(image, width, height) RaylibAssertImageSize((image), (int)(width), (int)(height))
 
 // Variadic Arguments
 #define RAYLIB_ASSERT_CAT(a, b) RAYLIB_ASSERT_CAT_I(a, b)
@@ -692,10 +706,10 @@ static inline bool RaylibAssertStringEq(const char *a, const char *b)
 #define AssertImageSize_1(image) AssertFail_1("Expected image, width, and height for AssertImageSize()")
 #define AssertImageSize_2(image, expectedWidth) AssertFail_1("Expected image, width, and height for AssertImageSize()")
 #define AssertImageSize_3(image, expectedWidth, expectedHeight) AssertImageSize_7(image, expectedWidth, expectedHeight, "AssertImageSize(%s, %s, %s) - Image size does not match", #image, #expectedWidth, #expectedHeight)
-#define AssertImageSize_4(image, expectedWidth, expectedHeight, message) Assert_2((image).width == (expectedWidth) && (image).height == (expectedHeight), message)
-#define AssertImageSize_5(image, expectedWidth, expectedHeight, message, p1) Assert_3((image).width == (expectedWidth) && (image).height == (expectedHeight), message, p1)
-#define AssertImageSize_6(image, expectedWidth, expectedHeight, message, p1, p2) Assert_4((image).width == (expectedWidth) && (image).height == (expectedHeight), message, p1, p2)
-#define AssertImageSize_7(image, expectedWidth, expectedHeight, message, p1, p2, p3) Assert_5((image).width == (expectedWidth) && (image).height == (expectedHeight), message, p1, p2, p3)
+#define AssertImageSize_4(image, expectedWidth, expectedHeight, message) Assert_2(RAYLIB_ASSERT_IMAGE_SIZE(image, expectedWidth, expectedHeight), message)
+#define AssertImageSize_5(image, expectedWidth, expectedHeight, message, p1) Assert_3(RAYLIB_ASSERT_IMAGE_SIZE(image, expectedWidth, expectedHeight), message, p1)
+#define AssertImageSize_6(image, expectedWidth, expectedHeight, message, p1, p2) Assert_4(RAYLIB_ASSERT_IMAGE_SIZE(image, expectedWidth, expectedHeight), message, p1, p2)
+#define AssertImageSize_7(image, expectedWidth, expectedHeight, message, p1, p2, p3) Assert_5(RAYLIB_ASSERT_IMAGE_SIZE(image, expectedWidth, expectedHeight), message, p1, p2, p3)
 
 // AssertTexture()
 #define AssertTexture_0() AssertFail_1("No texture provided for AssertTexture()")
@@ -1018,11 +1032,11 @@ static inline bool RaylibAssertStringEq(const char *a, const char *b)
 #define AssertInRange_0() AssertFail_1("No values provided for AssertInRange()")
 #define AssertInRange_1(value) AssertFail_1("Expected three values for AssertInRange()")
 #define AssertInRange_2(value, min) AssertFail_1("Expected three values for AssertInRange()")
-#define AssertInRange_3(value, min, max) Assert_5((value) >= (min) && (value) <= (max), "AssertInRange(%s, %s, %s) - Value is not within range", #value, #min, #max)
-#define AssertInRange_4(value, min, max, message) Assert_2((value) >= (min) && (value) <= (max), message)
-#define AssertInRange_5(value, min, max, message, p1) Assert_3((value) >= (min) && (value) <= (max), message, p1)
-#define AssertInRange_6(value, min, max, message, p1, p2) Assert_4((value) >= (min) && (value) <= (max), message, p1, p2)
-#define AssertInRange_7(value, min, max, message, p1, p2, p3) Assert_5((value) >= (min) && (value) <= (max), message, p1, p2, p3)
+#define AssertInRange_3(value, min, max) Assert_5(RAYLIB_ASSERT_IN_RANGE(value, min, max), "AssertInRange(%s, %s, %s) - Value is not within range", #value, #min, #max)
+#define AssertInRange_4(value, min, max, message) Assert_2(RAYLIB_ASSERT_IN_RANGE(value, min, max), message)
+#define AssertInRange_5(value, min, max, message, p1) Assert_3(RAYLIB_ASSERT_IN_RANGE(value, min, max), message, p1)
+#define AssertInRange_6(value, min, max, message, p1, p2) Assert_4(RAYLIB_ASSERT_IN_RANGE(value, min, max), message, p1, p2)
+#define AssertInRange_7(value, min, max, message, p1, p2, p3) Assert_5(RAYLIB_ASSERT_IN_RANGE(value, min, max), message, p1, p2, p3)
 
 // AssertStringNotEqual()
 #define AssertStringNotEqual_0() AssertFail_1("No strings provided for AssertStringNotEqual()")

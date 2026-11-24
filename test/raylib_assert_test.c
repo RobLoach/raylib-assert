@@ -191,6 +191,25 @@ int main(int argc, char *argv[]) {
         AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1, "AssertImageSize() - %i", 1);
         AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1, "AssertImageSize() - %i, %i", 1, 2);
         AssertImageSize(sizedImage, sizedImage.width + 1, sizedImage.height + 1, "AssertImageSize() - %i, %i, %i", 1, 2, 3);
+
+        // The image argument must be evaluated exactly once.
+        SetExpectPass();
+        {
+            Image sizedImages[2] = { sizedImage, sizedImage };
+            int imageIndex = 0;
+            AssertImageSize(sizedImages[imageIndex++], sizedImage.width, sizedImage.height);
+            AssertEqual(imageIndex, 1);
+            AssertImageSize(sizedImages[imageIndex++], sizedImage.width, sizedImage.height, "AssertImageSize() - %i", imageIndex);
+            AssertEqual(imageIndex, 2);
+        }
+        SetExpectFail();
+        {
+            Image sizedImages[1] = { sizedImage };
+            int imageIndex = 0;
+            AssertImageSize(sizedImages[imageIndex++], sizedImage.width + 1, sizedImage.height + 1);
+            SetExpectPass();
+            AssertEqual(imageIndex, 1);
+        }
         UnloadImage(sizedImage);
     }
 
@@ -528,6 +547,27 @@ int main(int argc, char *argv[]) {
         AssertInRange(0, 1, 10, "AssertInRange() - %i", 1);
         AssertInRange(0, 1, 10, "AssertInRange() - %i, %i", 1, 2);
         AssertInRange(0, 1, 10, "AssertInRange() - %i, %i, %i", 1, 2, 3);
+
+        // The value argument must be evaluated exactly once.
+        SetExpectPass();
+        {
+            int i = 5;
+            AssertInRange(i++, 0, 10);
+            AssertEqual(i, 6);
+            AssertInRange(i++, 0, 10, "AssertInRange() - %i", 1);
+            AssertEqual(i, 7);
+            float f = 0.5f;
+            AssertInRange(f, 0.0f, 1.0f);
+            AssertInRange(f++, 0, 1);
+            AssertFloatEqual(f, 1.5f);
+        }
+        SetExpectFail();
+        {
+            int i = 11;
+            AssertInRange(i++, 0, 10);
+            SetExpectPass();
+            AssertEqual(i, 12);
+        }
     }
 
     // AssertStringNotEqual()
